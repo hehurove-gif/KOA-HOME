@@ -9,10 +9,11 @@
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page"
   },
-  // Ruta en la zona koa-hub.com (más específica que otras rutas del dominio,
-  // como /tickets/*). Si prefieres asignarla desde el dashboard, borra este bloque.
-  "routes": [
-    { "pattern": "koa-hub.com/home*", "zone_name": "koa-hub.com" }
-  ],
+  // Sin "routes": la ruta koa-hub.com/home* falló en el build porque la zona
+  // koa-hub.com no se encontró en la cuenta/token de Workers Builds.
+  // Cuando la zona esté en esta cuenta, agrégala desde el dashboard
+  // (Worker > Settings > Domains & Routes) o restaura:
+  // "routes": [{ "pattern": "koa-hub.com/home*", "zone_name": "koa-hub.com" }],
+  "workers_dev": true,
   "observability": { "enabled": true }
 }
