@@ -4,6 +4,7 @@
   "compatibility_date": "2026-11-01",
   // Worker de solo assets: sirve public/ tal cual (sin código de Worker).
   // El sitio vive en public/home/, así que se publica en <dominio>/home/.
+  // public/_redirects envía la raíz (/) a /home/; sin eso la raíz da 404.
   "assets": {
     "directory": "./public",
     "html_handling": "auto-trailing-slash",

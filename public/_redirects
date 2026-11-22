@@ -1,0 +1,3 @@
+# La landing vive en /home/ (ver wrangler.jsonc). Sin esto, la raíz del Worker
+# (https://koa-home.<cuenta>.workers.dev/) devuelve 404 porque no hay public/index.html.
+/ /home/ 302

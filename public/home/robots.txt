@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://koa-hub.com/sitemap.xml
+Sitemap: https://koa-hub.com/home/sitemap.xml
