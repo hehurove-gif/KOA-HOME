@@ -43,10 +43,14 @@ Sitio estático (HTML + CSS + JS vanilla, sin build), bien estructurado y accesi
 | P2 | Sin scroll horizontal en 1440 y 390 px | `scrollWidth == clientWidth` | Pasa |
 | P3 | JS genera 3 tarjetas en `#fuerzas-lista` | 3 `.unit-card` | Pasa |
 | P4 | Un solo `h1`; todas las imágenes con `alt` | 1 / 0 sin alt | Pasa |
-| P5 | Cambio de tema persiste tras recargar | `data-theme` y logo coinciden | Pendiente (manual/automatizar) |
-| P6 | Anclas del menú y footer llevan a su sección | 7 anclas válidas | Pendiente |
-| P7 | Enlaces externos abren con `noopener` y responden 200 | Todos válidos | Pendiente (requiere red) |
-| P8 | `prefers-reduced-motion` desactiva animaciones | Sin órbita/paralaje | Pendiente |
-| P9 | Sin JS: se ve el `<noscript>` | Resumen de 3 fuerzas | Pendiente |
+| P5 | Cambio de tema persiste tras recargar | `data-theme` y logo coinciden | Pasa |
+| P6 | Anclas del menú y footer llevan a su sección | Todas las anclas existen | Pasa (11 anclas) |
+| P7 | Enlaces externos con `noopener`; eSPORTS = esports.koa-hub.com | `rel` correcto, sin `vercel` | Pasa (HTTP 200 de destinos sin verificar: sin red) |
+| P8 | `prefers-reduced-motion` desactiva animaciones | Sin revelado ni giro de órbita | Pasa |
+| P9 | Sin JS: se ve el `<noscript>` | Resumen de 3 fuerzas | Pasa |
 | P10 | Lighthouse móvil ≥ 90 en Performance/A11y/SEO | Reporte adjunto | Pendiente (requiere red) |
 | P11 | Contenido ↔ KOA-dex (hallazgos 1–3) | Sin afirmaciones sin fuente | **Falla** hasta resolver 1–3 |
+| P12 | Worker: `wrangler deploy --dry-run` y `wrangler dev` sirven `/home/`, css, js, logos; `/home/nope` da 404; PDFs no se publican | 200 / 404 | Pasa |
+| P13 | Encabezados de seguridad y cache (`public/_headers`) | Presentes en `/home/` y assets | Pasa |
+
+Nota Fase 2: todas las pruebas se ejecutaron contra `wrangler dev` (ruta `/home/`). Estado de P11 sin cambio.
