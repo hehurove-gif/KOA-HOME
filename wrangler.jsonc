@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "koa-home",
+  "compatibility_date": "2026-11-01",
+  // Worker de solo assets: sirve public/ tal cual (sin código de Worker).
+  // El sitio vive en public/home/, así que se publica en <dominio>/home/.
+  "assets": {
+    "directory": "./public",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  // Ruta en la zona koa-hub.com (más específica que otras rutas del dominio,
+  // como /tickets/*). Si prefieres asignarla desde el dashboard, borra este bloque.
+  "routes": [
+    { "pattern": "koa-hub.com/home*", "zone_name": "koa-hub.com" }
+  ],
+  "observability": { "enabled": true }
+}

@@ -18,9 +18,8 @@ const RAMAS = [
     idiomaFrase: "en",
     etiquetas: ["Comunidad", "Torneos", "Competencia"],
     enlaceExterno: {
-      // URL provisional: esports.koa-hub.com aún no resuelve.
       texto: "Visitar el sitio de eSPORTS",
-      url: "https://koasports.vercel.app/"
+      url: "https://esports.koa-hub.com/"
     }
     // Pendiente: Equipo representativo de KOA eSPORTS.
   },
