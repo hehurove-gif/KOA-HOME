@@ -2520,3 +2520,11 @@ a {
     display: none;
   }
 }
+
+/* Logos de cada rama en el pie (mismo recuadro que las redes) */
+.footer__branch{display:inline-flex;align-items:center;gap:.85rem}
+.social-tile--esports{background:#4c659d}
+.social-tile--sports{background:#cab834}
+.social-tile--wellness{background:#ab9f7a}
+.social-tile--esports img,.social-tile--sports img,.social-tile--wellness img{width:30px;height:auto;max-width:none}
+.footer__list--nested .social-tile{width:28px;height:28px}
