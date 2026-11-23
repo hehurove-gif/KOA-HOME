@@ -2528,3 +2528,5 @@ a {
 .social-tile--wellness{background:#ab9f7a}
 .social-tile--esports img,.social-tile--sports img,.social-tile--wellness img{width:30px;height:auto;max-width:none}
 .footer__list--nested .social-tile{width:28px;height:28px}
+.social-tile--logo{background:#17171a}
+.social-tile--logo img{width:28px;height:auto}
