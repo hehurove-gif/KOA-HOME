@@ -741,6 +741,75 @@ function iniciarOrbita() {
   }
 }
 
+/**
+ * La cinta de palabras avanza con el scroll: al bajar corre hacia la izquierda
+ * y al subir regresa, con un poco de inercia. Sin JS o con movimiento reducido
+ * se queda con la animación CSS (o quieta).
+ */
+function iniciarCinta() {
+  const pista = document.querySelector(".marquee__track");
+
+  if (!pista) {
+    return;
+  }
+
+  const reducido = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (reducido.matches) {
+    return;
+  }
+
+  const PIXELES_POR_PIXEL = 0.9;
+  let objetivo = window.scrollY * PIXELES_POR_PIXEL;
+  let actual = objetivo;
+  let cuadro = 0;
+  let ancho = 0;
+
+  pista.classList.add("marquee__track--scroll");
+
+  function medir() {
+    ancho = pista.scrollWidth / 2;
+  }
+
+  function pintar() {
+    cuadro = 0;
+    actual += (objetivo - actual) * 0.14;
+
+    if (ancho > 0) {
+      const desplazamiento = ((actual % ancho) + ancho) % ancho;
+      pista.style.transform = "translate3d(" + (-desplazamiento).toFixed(1) + "px,0,0)";
+    }
+
+    if (Math.abs(objetivo - actual) > 0.2) {
+      cuadro = window.requestAnimationFrame(pintar);
+    }
+  }
+
+  function pedir() {
+    if (!cuadro) {
+      cuadro = window.requestAnimationFrame(pintar);
+    }
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      objetivo = window.scrollY * PIXELES_POR_PIXEL;
+      pedir();
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("resize", function () {
+    medir();
+    pedir();
+  });
+
+  window.addEventListener("load", medir);
+  medir();
+  pedir();
+}
+
 function iniciar() {
   renderizarRamas();
   iniciarIdioma();
@@ -748,6 +817,7 @@ function iniciar() {
   iniciarRevelado();
   iniciarParalaje();
   iniciarOrbita();
+  iniciarCinta();
   actualizarAnio();
 }
 

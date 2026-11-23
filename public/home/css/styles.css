@@ -841,6 +841,11 @@ a {
   animation: marquee 34s linear infinite;
 }
 
+.marquee__track--scroll {
+  animation: none;
+  will-change: transform;
+}
+
 .marquee__group {
   display: flex;
   align-items: center;

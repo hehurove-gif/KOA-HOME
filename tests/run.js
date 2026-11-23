@@ -447,6 +447,22 @@ async function nuevaPagina(browser, opciones, inicial) {
     await contexto.close();
   });
 
+  await prueba("F4-2", "La cinta de palabras avanza al bajar y regresa al subir", async () => {
+    const { contexto, pagina } = await nuevaPagina(browser, { viewport: { width: 1440, height: 900 } });
+    const x = () => pagina.evaluate(() => new DOMMatrixReadOnly(getComputedStyle(document.querySelector(".marquee__track")).transform).m41);
+    const a = await x();
+    await pagina.evaluate(() => window.scrollTo(0, 400));
+    await pagina.waitForTimeout(1200);
+    const b = await x();
+    afirmar(b < a - 150, "debe moverse a la izquierda al bajar: " + a + " → " + b);
+    await pagina.evaluate(() => window.scrollTo(0, 0));
+    await pagina.waitForTimeout(1200);
+    const c = await x();
+    afirmar(c > b + 150, "debe regresar al subir: " + b + " → " + c);
+    afirmar(await pagina.evaluate(() => getComputedStyle(document.querySelector(".marquee__track")).animationName === "none"), "sin animación CSS cuando hay JS");
+    await contexto.close();
+  });
+
   await browser.close();
 
   const ancho = Math.max(...resultados.map((r) => r.id.length));
