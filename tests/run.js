@@ -193,7 +193,7 @@ async function nuevaPagina(browser, opciones, inicial) {
     afirmar(h("x-content-type-options") === "nosniff" && h("x-frame-options") === "SAMEORIGIN" &&
       h("referrer-policy") && h("permissions-policy"), "faltan encabezados");
     const logo = await fetch(ORIGIN + "/home/assets/brand/koa-logo-blanco.png");
-    afirmar(/immutable/.test(logo.headers.get("cache-control") || ""), "cache de assets");
+    afirmar(/max-age=3600/.test(logo.headers.get("cache-control") || ""), "cache de assets");
   });
 
   /* ============================ FASE 2 ============================ */
@@ -367,59 +367,67 @@ async function nuevaPagina(browser, opciones, inicial) {
 
   /* ============================ FASE 3 ============================ */
 
-  await prueba("F3-1", "Pie: 3 tarjetas de marca y sitios con enlaces e imágenes cargadas (es, en, ja)", async () => {
+  await prueba("F3-1", "Pie: 4 redes con logo (Instagram, WhatsApp, TikTok, Discord), enlaces seguros e imágenes cargadas (es, en, ja)", async () => {
     for (const lang of ["es", "en", "ja"]) {
       const { contexto, pagina } = await nuevaPagina(browser, { viewport: { width: 1440, height: 900 } }, { "koa-lang": lang });
-      await pagina.locator(".footer__sites").scrollIntoViewIfNeeded();
+      await pagina.locator(".footer__social").scrollIntoViewIfNeeded();
       await pagina.waitForTimeout(500);
       const r = await pagina.evaluate(() => ({
-        tarjetas: [...document.querySelectorAll(".footer__logo-card")].map((a) => ({
+        filas: [...document.querySelectorAll(".footer__social-row")].map((a) => ({
           href: a.getAttribute("href"),
           rel: a.rel,
-          ok: [...a.querySelectorAll("img")].every((i) => i.complete && i.naturalWidth > 0),
-          nota: a.querySelector(".footer__logo-note").textContent.trim()
+          texto: a.textContent.trim(),
+          aria: a.getAttribute("aria-label"),
+          ok: [...a.querySelectorAll("img")].every((i) => i.complete && i.naturalWidth > 0)
         })),
-        titulo: document.querySelector("#footer-sitios-titulo").textContent.trim()
+        titulo: document.querySelector(".footer__contact .footer__heading").textContent.trim(),
+        tarjetasViejas: document.querySelectorAll(".footer__sites, .footer__logo-card").length,
+        crudos: [...document.querySelectorAll(".site-footer *")].filter((e) => e.children.length === 0 && /^[a-z0-9]+(\.[a-zA-Z0-9]+)+$/.test(e.textContent.trim())).length
       }));
-      afirmar(r.tarjetas.length === 3, lang + ": tarjetas " + r.tarjetas.length);
-      afirmar(r.tarjetas.every((t) => t.ok), lang + ": imagen sin cargar");
-      afirmar(r.tarjetas[1].href === "https://esports.koa-hub.com/" && /noopener/.test(r.tarjetas[1].rel), lang + ": enlace eSPORTS");
-      afirmar(r.tarjetas[2].href === "https://koa-hub.com/tickets/" && /noopener/.test(r.tarjetas[2].rel), lang + ": enlace XHOCK");
-      afirmar(r.titulo === dic[lang]["footer.sites.h"], lang + ": título " + r.titulo);
-      afirmar(r.tarjetas[1].nota === dic[lang]["sites.esports"], lang + ": nota sin traducir");
+      afirmar(r.filas.map((f) => f.texto).join() === "Instagram,WhatsApp,TikTok,Discord", lang + ": " + r.filas.map((f) => f.texto));
+      afirmar(r.filas.every((f) => f.ok && /noopener/.test(f.rel) && /^https:\/\//.test(f.href)), lang + ": imagen o enlace");
+      afirmar(r.filas[3].href === "https://discord.gg/rsghdX4Vf", lang + ": Discord");
+      afirmar(r.filas.every((f) => f.aria && !/^ch\./.test(f.aria)), lang + ": aria-label");
+      afirmar(r.titulo === dic[lang]["footer.contact.h"], lang + ": título " + r.titulo);
+      afirmar(r.tarjetasViejas === 0 && r.crudos === 0, lang + ": " + JSON.stringify({ v: r.tarjetasViejas, c: r.crudos }));
       await contexto.close();
     }
   });
 
-  await prueba("F3-2", "Pie: los logos cambian con el tema (claro/oscuro) y las rutas existen", async () => {
-    const { contexto, pagina } = await nuevaPagina(browser, { colorScheme: "dark" }, { "koa-theme": "dark" });
-    const srcs = () => pagina.evaluate(() => [...document.querySelectorAll(".footer__logo-img")].map((i) => i.getAttribute("src")));
-    let a = await srcs();
-    afirmar(/oscuro/.test(a[1]) && /blanco/.test(a[0]) && /blanco/.test(a[2]), "oscuro: " + a);
-    await pagina.click("#theme-toggle");
-    a = await srcs();
-    afirmar(/claro/.test(a[1]) && /negro/.test(a[0]) && /negro/.test(a[2]), "claro: " + a);
-    for (const f of ["sitio-esports-oscuro.png", "sitio-esports-claro.png"]) {
-      afirmar((await fetch(`${ORIGIN}/home/assets/brand/${f}`)).status === 200, f);
-    }
+  await prueba("F3-2", "Azulejo de red: 34 px, esquinas cortadas, icono de 22 px (igual que el sitio de eSPORTS)", async () => {
+    const { contexto, pagina } = await nuevaPagina(browser);
+    const r = await pagina.evaluate(() => {
+      const t = document.querySelector(".social-tile"), i = t.querySelector("img");
+      const rt = t.getBoundingClientRect(), ri = i.getBoundingClientRect();
+      return { w: Math.round(rt.width), h: Math.round(rt.height), icono: Math.round(ri.width), clip: getComputedStyle(t).clipPath !== "none" };
+    });
+    afirmar(r.w === 34 && r.h === 34 && r.icono <= 22 && r.clip, JSON.stringify(r));
     await contexto.close();
+  });
+
+  await prueba("F3-3", "Pie en móvil 390 px: sin desbordar y la palabra HUB en una sola línea", async () => {
+    const { contexto, pagina } = await nuevaPagina(browser, { viewport: { width: 390, height: 844 } });
+    const r = await pagina.evaluate(() => ({
+      palabra: Math.round(document.querySelector(".site-header .brand__word").getBoundingClientRect().height),
+      sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth
+    }));
+    afirmar(r.sw === r.cw && r.palabra < 40, JSON.stringify(r));
+    await contexto.close();
+  });
+
+  await prueba("F3-5", "Caché: HTML/CSS/JS se revalidan y las versiones (?v=) de CSS y JS están al día", async () => {
+    const css = await fetch(ORIGIN + "/home/css/styles.css");
+    const js = await fetch(ORIGIN + "/home/js/main.js");
+    afirmar(/must-revalidate/.test(css.headers.get("cache-control") || "") && /must-revalidate/.test(js.headers.get("cache-control") || ""), "css/js deben revalidarse");
+    const html = await (await fetch(BASE)).text();
+    const versiones = [...html.matchAll(/(?:styles\.css|main\.js|i18n\.js)\?v=([0-9a-z]+)/g)].map((m) => m[1]);
+    afirmar(versiones.length === 3 && new Set(versiones).size === 1, "versiones: " + versiones);
   });
 
   await prueba("F3-4", "Cabecera móvil en japonés: la palabra HUB no se parte en letras", async () => {
     const { contexto, pagina } = await nuevaPagina(browser, { viewport: { width: 390, height: 844 } }, { "koa-lang": "ja" });
     const h = await pagina.evaluate(() => Math.round(document.querySelector(".site-header .brand__word").getBoundingClientRect().height));
     afirmar(h < 40, "alto de HUB: " + h);
-    await contexto.close();
-  });
-
-  await prueba("F3-3", "Pie en móvil 390 px: tarjetas apiladas, sin desbordar", async () => {
-    const { contexto, pagina } = await nuevaPagina(browser, { viewport: { width: 390, height: 844 } });
-    const r = await pagina.evaluate(() => ({
-      palabra: Math.round(document.querySelector(".site-header .brand__word").getBoundingClientRect().height),
-      lefts: new Set([...document.querySelectorAll(".footer__logo-card")].map((e) => Math.round(e.getBoundingClientRect().left))).size,
-      sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth
-    }));
-    afirmar(r.lefts === 1 && r.sw === r.cw && r.palabra < 40, JSON.stringify(r));
     await contexto.close();
   });
 

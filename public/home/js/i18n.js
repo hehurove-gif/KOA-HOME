@@ -134,10 +134,10 @@ window.KOA_I18N = {
     "ch.ig.aria": "Instagram de KOA (se abre en una pestaña nueva)",
     "ch.wa.aria": "WhatsApp de KOA (se abre en una pestaña nueva)",
     "ch.tt.aria": "TikTok de KOA (se abre en una pestaña nueva)",
+    "ch.dc.aria": "Discord de KOA (se abre en una pestaña nueva)",
 
     "footer.text": "Ecosistema que reúne deporte, gaming y bienestar en una misma comunidad. Transforma. Supera. Conecta.",
-    "footer.contact.h": "Contacto",
-    "footer.follow": "Sigue la conversación.",
+    "footer.contact.h": "Síguenos",
     "footer.all": "Todos los canales",
     "footer.forces.h": "Fuerzas y disciplinas",
     "footer.forces.aria": "Fuerzas y disciplinas de KOA",
@@ -151,10 +151,6 @@ window.KOA_I18N = {
     "pg.phil": "Filosofía compartida",
     "pg.cta": "Explora KOA",
     "pg.contact": "Contacto",
-    "footer.sites.h": "Marca y sitios de KOA",
-    "sites.brand": "Marca KOA",
-    "sites.esports": "Comunidad y torneos",
-    "sites.xhock": "Torneo internacional de hockey",
     "footer.bottom": "Deporte · Gaming · Bienestar"
   },
 
@@ -279,10 +275,10 @@ window.KOA_I18N = {
     "ch.ig.aria": "KOA on Instagram (opens in a new tab)",
     "ch.wa.aria": "KOA on WhatsApp (opens in a new tab)",
     "ch.tt.aria": "KOA on TikTok (opens in a new tab)",
+    "ch.dc.aria": "KOA on Discord (opens in a new tab)",
 
     "footer.text": "An ecosystem that brings sport, gaming and wellness together in one community. Transform. Surpass. Connect.",
-    "footer.contact.h": "Contact",
-    "footer.follow": "Join the conversation.",
+    "footer.contact.h": "Follow us",
     "footer.all": "All channels",
     "footer.forces.h": "Forces and disciplines",
     "footer.forces.aria": "KOA forces and disciplines",
@@ -296,10 +292,6 @@ window.KOA_I18N = {
     "pg.phil": "Shared philosophy",
     "pg.cta": "Explore KOA",
     "pg.contact": "Contact",
-    "footer.sites.h": "KOA brand and sites",
-    "sites.brand": "KOA brand",
-    "sites.esports": "Community and tournaments",
-    "sites.xhock": "International hockey tournament",
     "footer.bottom": "Sport · Gaming · Wellness"
   },
 
@@ -424,10 +416,10 @@ window.KOA_I18N = {
     "ch.ig.aria": "KOAのInstagram(新しいタブで開きます)",
     "ch.wa.aria": "KOAのWhatsApp(新しいタブで開きます)",
     "ch.tt.aria": "KOAのTikTok(新しいタブで開きます)",
+    "ch.dc.aria": "KOAのDiscord(新しいタブで開きます)",
 
     "footer.text": "スポーツ、ゲーミング、ウェルネスをひとつのコミュニティにまとめるエコシステム。変革する。超える。つながる。",
-    "footer.contact.h": "お問い合わせ",
-    "footer.follow": "会話に参加しよう。",
+    "footer.contact.h": "フォローする",
     "footer.all": "すべてのチャンネル",
     "footer.forces.h": "3つの力と競技",
     "footer.forces.aria": "KOAの3つの力と競技",
@@ -441,10 +433,6 @@ window.KOA_I18N = {
     "pg.phil": "共有する哲学",
     "pg.cta": "KOAを探索",
     "pg.contact": "お問い合わせ",
-    "footer.sites.h": "KOAのブランドとサイト",
-    "sites.brand": "KOAブランド",
-    "sites.esports": "コミュニティと大会",
-    "sites.xhock": "国際ホッケー大会",
     "footer.bottom": "スポーツ · ゲーミング · ウェルネス"
   }
 };

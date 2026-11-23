@@ -2466,67 +2466,48 @@ a {
 }
 
 /* --------------------------------------------------------------------------
-   Pie: marca y sitios de KOA
+   Pie: redes con logo (mismo azulejo que el sitio de eSPORTS)
    -------------------------------------------------------------------------- */
 
-.footer__sites {
-  padding-block: 2rem 2.25rem;
-  border-top: 1px solid var(--line);
+.footer__social-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.footer__logos {
-  margin-bottom: 0;
+.footer__social-row:hover,
+.footer__social-row:focus-visible {
+  color: var(--koa-red);
+}
+
+.footer__social {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 1.25rem;
   padding-left: 0;
   list-style: none;
 }
 
-.footer__logo-card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.2rem;
-  padding: 1.1rem 1.25rem 1.2rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: var(--surface);
-  color: var(--text);
-  text-decoration: none;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+.social-tile {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: #f6f4f5;
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
 }
 
-.footer__logo-card:hover,
-.footer__logo-card:focus-visible {
-  border-color: var(--koa-red);
-  transform: translateY(-2px);
-}
-
-.footer__logo-frame {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 4.5rem;
-  margin-bottom: 0.75rem;
-}
-
-.footer__logo-img {
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  max-height: 3.4rem;
+.social-tile img {
+  width: 22px;
+  height: 22px;
   object-fit: contain;
-}
-
-.footer__logo-name {
-  color: var(--text-strong);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-}
-
-.footer__logo-note {
-  color: var(--muted);
-  font-size: 0.74rem;
-  line-height: 1.4;
 }
 
 .brand__word {

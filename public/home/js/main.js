@@ -33,6 +33,19 @@ function t(clave) {
 }
 
 /**
+ * Indica si una clave existe en el diccionario (en el idioma actual o en es).
+ * @param {string} clave Clave del diccionario.
+ * @returns {boolean}
+ */
+function tieneTexto(clave) {
+  const diccionario = window.KOA_I18N || {};
+  return Boolean(
+    (diccionario[idiomaActual] && diccionario[idiomaActual][clave] !== undefined) ||
+    (diccionario.es && diccionario.es[clave] !== undefined)
+  );
+}
+
+/**
  * Configuración centralizada de las fuerzas de KOA.
  * Los textos son claves de js/i18n.js; los nombres de marca no se traducen.
  */
@@ -292,7 +305,12 @@ function aplicarIdioma(idioma, persistir) {
   }
 
   document.querySelectorAll("[data-i18n]").forEach(function (elemento) {
-    elemento.textContent = t(elemento.getAttribute("data-i18n"));
+    const clave = elemento.getAttribute("data-i18n");
+
+    /* Sin traducción disponible se conserva el texto que ya trae el HTML. */
+    if (tieneTexto(clave)) {
+      elemento.textContent = t(clave);
+    }
   });
 
   document.querySelectorAll("[data-i18n-html]").forEach(function (elemento) {

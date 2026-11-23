@@ -40,15 +40,16 @@ Regla del proyecto: al terminar una fase se corre primero el plan de la fase ant
 | F2-9 | Móvil 390 px: idioma y tema visibles, sin solaparse ni desbordar | Pasa |
 | F2-10 | Japonés: fuente CJK de respaldo y títulos sin recortar | Pasa |
 
-## Fase 3 (logos de marca y sitios en el pie)
+## Fase 3 (redes con logo en el pie, estilo sitio eSPORTS)
 | ID | Prueba | Resultado |
 |----|--------|-----------|
-| F3-1 | 3 tarjetas (KOA HUB, KOA eSPORTS, KOA XHOCK) con enlaces, `noopener`, imágenes cargadas y textos en es/en/ja | Pasa |
-| F3-2 | Los logos cambian con el tema y los archivos nuevos existen | Pasa |
-| F3-3 | Móvil 390 px: tarjetas apiladas, sin desbordar | Pasa |
-| F3-4 | Cabecera móvil en japonés: "HUB" no se parte en letras (el defecto existía: medía 79 px de alto; el botón de tema muestra solo el icono en ≤480 px) | Pasa |
+| F3-1 | Lista "Síguenos" con Instagram, WhatsApp, TikTok y Discord (enlaces, `noopener`, textos es/en/ja, sin tarjetas antiguas ni claves sin traducir) | Pasa |
+| F3-2 | Cada fila: recuadro de 34 px con esquinas cortadas e icono de 22 px | Pasa |
+| F3-3 | Móvil 390 px: sin desbordar, "HUB" en una sola línea | Pasa |
+| F3-4 | Cabecera móvil en japonés: "HUB" no se parte en letras | Pasa |
+| F3-5 | Caché: CSS/JS con revalidación y misma versión `?v=` en HTML | Pasa |
 
-Orden de ejecución al cerrar la Fase 3: Fase 1, Fase 2 y Fase 3 (25/25).
+Orden de ejecución al cerrar la Fase 3: Fase 1, Fase 2 y Fase 3 (26/26).
 
 ## No cubierto
 - Lighthouse / rendimiento y comprobación de que los destinos externos responden (sin red en el entorno).
