@@ -40,6 +40,16 @@ Regla del proyecto: al terminar una fase se corre primero el plan de la fase ant
 | F2-9 | Móvil 390 px: idioma y tema visibles, sin solaparse ni desbordar | Pasa |
 | F2-10 | Japonés: fuente CJK de respaldo y títulos sin recortar | Pasa |
 
+## Fase 3 (logos de marca y sitios en el pie)
+| ID | Prueba | Resultado |
+|----|--------|-----------|
+| F3-1 | 3 tarjetas (KOA HUB, KOA eSPORTS, KOA XHOCK) con enlaces, `noopener`, imágenes cargadas y textos en es/en/ja | Pasa |
+| F3-2 | Los logos cambian con el tema y los archivos nuevos existen | Pasa |
+| F3-3 | Móvil 390 px: tarjetas apiladas, sin desbordar | Pasa |
+| F3-4 | Cabecera móvil en japonés: "HUB" no se parte en letras (el defecto existía: medía 79 px de alto; el botón de tema muestra solo el icono en ≤480 px) | Pasa |
+
+Orden de ejecución al cerrar la Fase 3: Fase 1, Fase 2 y Fase 3 (25/25).
+
 ## No cubierto
 - Lighthouse / rendimiento y comprobación de que los destinos externos responden (sin red en el entorno).
 - Safari y Firefox. En particular, Safari actualiza el favicon de forma menos fiable que Chrome/Firefox.

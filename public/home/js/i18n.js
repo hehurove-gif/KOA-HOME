@@ -151,6 +151,10 @@ window.KOA_I18N = {
     "pg.phil": "Filosofía compartida",
     "pg.cta": "Explora KOA",
     "pg.contact": "Contacto",
+    "footer.sites.h": "Marca y sitios de KOA",
+    "sites.brand": "Marca KOA",
+    "sites.esports": "Comunidad y torneos",
+    "sites.xhock": "Torneo internacional de hockey",
     "footer.bottom": "Deporte · Gaming · Bienestar"
   },
 
@@ -292,6 +296,10 @@ window.KOA_I18N = {
     "pg.phil": "Shared philosophy",
     "pg.cta": "Explore KOA",
     "pg.contact": "Contact",
+    "footer.sites.h": "KOA brand and sites",
+    "sites.brand": "KOA brand",
+    "sites.esports": "Community and tournaments",
+    "sites.xhock": "International hockey tournament",
     "footer.bottom": "Sport · Gaming · Wellness"
   },
 
@@ -433,6 +441,10 @@ window.KOA_I18N = {
     "pg.phil": "共有する哲学",
     "pg.cta": "KOAを探索",
     "pg.contact": "お問い合わせ",
+    "footer.sites.h": "KOAのブランドとサイト",
+    "sites.brand": "KOAブランド",
+    "sites.esports": "コミュニティと大会",
+    "sites.xhock": "国際ホッケー大会",
     "footer.bottom": "スポーツ · ゲーミング · ウェルネス"
   }
 };

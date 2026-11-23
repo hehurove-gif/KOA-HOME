@@ -365,6 +365,64 @@ async function nuevaPagina(browser, opciones, inicial) {
     await contexto.close();
   });
 
+  /* ============================ FASE 3 ============================ */
+
+  await prueba("F3-1", "Pie: 3 tarjetas de marca y sitios con enlaces e imágenes cargadas (es, en, ja)", async () => {
+    for (const lang of ["es", "en", "ja"]) {
+      const { contexto, pagina } = await nuevaPagina(browser, { viewport: { width: 1440, height: 900 } }, { "koa-lang": lang });
+      await pagina.locator(".footer__sites").scrollIntoViewIfNeeded();
+      await pagina.waitForTimeout(500);
+      const r = await pagina.evaluate(() => ({
+        tarjetas: [...document.querySelectorAll(".footer__logo-card")].map((a) => ({
+          href: a.getAttribute("href"),
+          rel: a.rel,
+          ok: [...a.querySelectorAll("img")].every((i) => i.complete && i.naturalWidth > 0),
+          nota: a.querySelector(".footer__logo-note").textContent.trim()
+        })),
+        titulo: document.querySelector("#footer-sitios-titulo").textContent.trim()
+      }));
+      afirmar(r.tarjetas.length === 3, lang + ": tarjetas " + r.tarjetas.length);
+      afirmar(r.tarjetas.every((t) => t.ok), lang + ": imagen sin cargar");
+      afirmar(r.tarjetas[1].href === "https://esports.koa-hub.com/" && /noopener/.test(r.tarjetas[1].rel), lang + ": enlace eSPORTS");
+      afirmar(r.tarjetas[2].href === "https://koa-hub.com/tickets/" && /noopener/.test(r.tarjetas[2].rel), lang + ": enlace XHOCK");
+      afirmar(r.titulo === dic[lang]["footer.sites.h"], lang + ": título " + r.titulo);
+      afirmar(r.tarjetas[1].nota === dic[lang]["sites.esports"], lang + ": nota sin traducir");
+      await contexto.close();
+    }
+  });
+
+  await prueba("F3-2", "Pie: los logos cambian con el tema (claro/oscuro) y las rutas existen", async () => {
+    const { contexto, pagina } = await nuevaPagina(browser, { colorScheme: "dark" }, { "koa-theme": "dark" });
+    const srcs = () => pagina.evaluate(() => [...document.querySelectorAll(".footer__logo-img")].map((i) => i.getAttribute("src")));
+    let a = await srcs();
+    afirmar(/oscuro/.test(a[1]) && /blanco/.test(a[0]) && /blanco/.test(a[2]), "oscuro: " + a);
+    await pagina.click("#theme-toggle");
+    a = await srcs();
+    afirmar(/claro/.test(a[1]) && /negro/.test(a[0]) && /negro/.test(a[2]), "claro: " + a);
+    for (const f of ["sitio-esports-oscuro.png", "sitio-esports-claro.png"]) {
+      afirmar((await fetch(`${ORIGIN}/home/assets/brand/${f}`)).status === 200, f);
+    }
+    await contexto.close();
+  });
+
+  await prueba("F3-4", "Cabecera móvil en japonés: la palabra HUB no se parte en letras", async () => {
+    const { contexto, pagina } = await nuevaPagina(browser, { viewport: { width: 390, height: 844 } }, { "koa-lang": "ja" });
+    const h = await pagina.evaluate(() => Math.round(document.querySelector(".site-header .brand__word").getBoundingClientRect().height));
+    afirmar(h < 40, "alto de HUB: " + h);
+    await contexto.close();
+  });
+
+  await prueba("F3-3", "Pie en móvil 390 px: tarjetas apiladas, sin desbordar", async () => {
+    const { contexto, pagina } = await nuevaPagina(browser, { viewport: { width: 390, height: 844 } });
+    const r = await pagina.evaluate(() => ({
+      palabra: Math.round(document.querySelector(".site-header .brand__word").getBoundingClientRect().height),
+      lefts: new Set([...document.querySelectorAll(".footer__logo-card")].map((e) => Math.round(e.getBoundingClientRect().left))).size,
+      sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth
+    }));
+    afirmar(r.lefts === 1 && r.sw === r.cw && r.palabra < 40, JSON.stringify(r));
+    await contexto.close();
+  });
+
   await browser.close();
 
   const ancho = Math.max(...resultados.map((r) => r.id.length));

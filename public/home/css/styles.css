@@ -2464,3 +2464,78 @@ a {
 :root[lang="ja"] .value__title {
   line-height: 1.2;
 }
+
+/* --------------------------------------------------------------------------
+   Pie: marca y sitios de KOA
+   -------------------------------------------------------------------------- */
+
+.footer__sites {
+  padding-block: 2rem 2.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.footer__logos {
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.footer__logo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  padding: 1.1rem 1.25rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.footer__logo-card:hover,
+.footer__logo-card:focus-visible {
+  border-color: var(--koa-red);
+  transform: translateY(-2px);
+}
+
+.footer__logo-frame {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 4.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.footer__logo-img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 3.4rem;
+  object-fit: contain;
+}
+
+.footer__logo-name {
+  color: var(--text-strong);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.footer__logo-note {
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+
+.brand__word {
+  white-space: nowrap;
+}
+
+/* En pantallas angostas el botón de tema muestra solo el icono (tiene aria-label) */
+@media (max-width: 480px) {
+  .theme-toggle__label {
+    display: none;
+  }
+}
