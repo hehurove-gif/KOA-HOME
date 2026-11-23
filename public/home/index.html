@@ -31,6 +31,14 @@
       }
     })();
   </script>
+  <!-- Bootstrap 5 en una capa CSS de baja prioridad: el CSS propio (sin capa) siempre
+       gana, así que no altera el diseño actual; las clases de Bootstrap (grid, utilidades)
+       quedan disponibles donde se usen. -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <style>
+    @layer bootstrap, site;
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css") layer(bootstrap);
+  </style>
   <link rel="stylesheet" href="css/styles.css?v=20261122b">
 </head>
 <body>
