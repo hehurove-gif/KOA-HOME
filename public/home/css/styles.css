@@ -1,31 +1,48 @@
 /* ==========================================================================
-   KOA HUB — Hoja de estilos provisional
-   Fase de prueba visual. Paleta base de 6 colores.
+   KOA HUB — Hoja de estilos
+   Paleta tomada del BrandBook KOA 2026: rojo maestro, blanco y negro, más los
+   colores de cada unidad (eSPORTS, SPORTS, WELLNESS). Superficies planas, sin
+   brillos ni cuadrículas decorativas, como en el BrandBook.
    ========================================================================== */
 
 :root {
-  /* Paleta KOA (6 colores) */
-  --koa-black: #0a0e13;
-  --koa-charcoal: #161d26;
-  --koa-bone: #f2ebdd;
-  --koa-red: #c62f33;
-  --koa-orange: #cd7d4b;
-  --koa-teal: #6fae9a;
+  /* Marca (BrandBook 2026) */
+  --koa-red: #e20714;
+  --koa-black: #050503;
+  --koa-white: #ffffff;
+  --koa-paper: #f6f4f5;
+  --koa-bone: #ffffff; /* texto sobre rojo de marca */
 
-  /* Escala de azules tinta — tema noche */
-  --gray-950: #080c11;
-  --gray-900: #0c1219;
-  --gray-850: #101822;
-  --gray-800: #15202c;
-  --gray-750: #1b2836;
-  --gray-700: #233545;
-  --gray-600: #31485a;
+  /* eSPORTS */
+  --es-blue: #4c659d;
+  --es-coral: #ff545b;
+  --es-periwinkle: #8198c5;
 
-  /* Rojos pastel — tema noche */
-  --pastel-red: #e3b3ac;
-  --pastel-red-strong: #d69a92;
-  --pastel-red-soft: rgba(227, 179, 172, 0.1);
-  --pastel-red-line: rgba(227, 179, 172, 0.28);
+  /* SPORTS */
+  --sp-yellow: #cab834;
+  --sp-lime: #e5ee65;
+  --sp-charcoal: #393738;
+
+  /* WELLNESS */
+  --we-sand: #ab9f7a;
+  --we-sage: #a0a384;
+  --we-cream: #ece5d3;
+  --we-taupe: #9c8b71;
+
+  /* Neutros del tema noche (negro de marca) */
+  --gray-950: #000000;
+  --gray-900: #050503;
+  --gray-850: #0d0d0b;
+  --gray-800: #141412;
+  --gray-750: #1c1c19;
+  --gray-700: #282825;
+  --gray-600: #393738;
+
+  /* Rojo de énfasis para texto y foco (coral del BrandBook) */
+  --pastel-red: #ff545b;
+  --pastel-red-strong: #e20714;
+  --pastel-red-soft: rgba(255, 84, 91, 0.1);
+  --pastel-red-line: rgba(255, 84, 91, 0.32);
 
   /* Tokens semánticos — tema noche */
   --bg: var(--gray-900);
@@ -35,54 +52,56 @@
   --surface-soft: var(--gray-700);
   --surface-muted: var(--gray-850);
   --band: var(--gray-850);
-  --text: #ece5d8;
-  --text-strong: #f7f2e7;
-  --muted: rgba(236, 229, 216, 0.62);
-  --muted-strong: rgba(236, 229, 216, 0.84);
-  --line: rgba(214, 204, 186, 0.14);
-  --line-strong: rgba(214, 204, 186, 0.27);
-  --line-soft: rgba(214, 204, 186, 0.07);
-  --grid-line: rgba(214, 204, 186, 0.035);
+  --text: #f6f4f5;
+  --text-strong: #ffffff;
+  --muted: rgba(246, 244, 245, 0.64);
+  --muted-strong: rgba(246, 244, 245, 0.86);
+  --line: rgba(246, 244, 245, 0.14);
+  --line-strong: rgba(246, 244, 245, 0.28);
+  --line-soft: rgba(246, 244, 245, 0.07);
+  --grid-line: transparent;
   --panel: var(--gray-850);
-  --header-bg: rgba(10, 16, 23, 0.86);
-  --overlay-bg: rgba(16, 24, 34, 0.94);
+  --header-bg: rgba(5, 5, 3, 0.9);
+  --overlay-bg: rgba(13, 13, 11, 0.96);
   --footer-bg: var(--gray-950);
-  --accent-red: #c62f33;
-  --accent-orange: #cd7d4b;
-  --accent-teal: #7cbaa6;
-  --accent-orange-soft: rgba(205, 125, 75, 0.12);
-  --accent-teal-soft: rgba(124, 186, 166, 0.1);
-  --glow-red: rgba(198, 47, 51, 0.09);
-  --glow-teal: rgba(124, 186, 166, 0.05);
-  --orbit-glow: rgba(198, 47, 51, 0.16);
-  --orbit-teal-line: rgba(124, 186, 166, 0.26);
-  --core-halo: rgba(198, 47, 51, 0.12);
-  --core-highlight: #e05a4e;
-  --core-deep: #6b1015;
-  --cta-deep: #6b1015;
-  --dot-halo: rgba(198, 47, 51, 0.16);
+  --accent-red: var(--koa-red);
+  --accent-esports: var(--es-periwinkle);
+  --accent-sports: var(--sp-lime);
+  --accent-wellness: var(--we-sand);
+  --accent-esports-soft: rgba(129, 152, 197, 0.14);
+  --accent-sports-soft: rgba(229, 238, 101, 0.1);
+  --accent-wellness-soft: rgba(171, 159, 122, 0.14);
+  --glow-red: transparent;
+  --glow-teal: transparent;
+  --orbit-glow: transparent;
+  --orbit-teal-line: rgba(171, 159, 122, 0.4);
+  --core-halo: rgba(226, 7, 20, 0.16);
+  --core-highlight: #ff545b;
+  --core-deep: #8f040d;
+  --cta-deep: #8f040d;
+  --dot-halo: rgba(226, 7, 20, 0.2);
   --focus: var(--pastel-red);
   --status-color: var(--pastel-red);
   --status-border: var(--pastel-red-line);
   --soon-color: var(--pastel-red);
   --soon-border: var(--pastel-red-line);
-  --shadow: rgba(3, 6, 10, 0.55);
-  --card-shadow: 0 1.5rem 3rem rgba(3, 6, 10, 0.28);
-  --button-shadow: rgba(198, 47, 51, 0.22);
-  --cta-glow: rgba(205, 125, 75, 0.24);
-  --grain-opacity: 0.045;
+  --shadow: rgba(0, 0, 0, 0.6);
+  --card-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.35);
+  --button-shadow: rgba(226, 7, 20, 0.3);
+  --cta-glow: rgba(255, 84, 91, 0.22);
+  --grain-opacity: 0;
 
-  /* Filosofía — azul tinta del tema noche */
-  --philosophy-bg: #0f1721;
-  --philosophy-text: #ece5d8;
-  --philosophy-muted: rgba(236, 229, 216, 0.66);
-  --philosophy-eyebrow: rgba(236, 229, 216, 0.62);
-  --philosophy-line: rgba(214, 204, 186, 0.13);
-  --philosophy-line-strong: rgba(214, 204, 186, 0.25);
-  --philosophy-card: #172230;
-  --philosophy-card-top: var(--pastel-red-strong);
+  /* Filosofía — negro de marca, un tono más claro que el fondo */
+  --philosophy-bg: #0d0d0b;
+  --philosophy-text: #f6f4f5;
+  --philosophy-muted: rgba(246, 244, 245, 0.68);
+  --philosophy-eyebrow: rgba(246, 244, 245, 0.62);
+  --philosophy-line: rgba(246, 244, 245, 0.13);
+  --philosophy-line-strong: rgba(246, 244, 245, 0.26);
+  --philosophy-card: #161614;
+  --philosophy-card-top: var(--koa-red);
   --philosophy-index: var(--pastel-red);
-  --philosophy-focus: var(--accent-teal);
+  --philosophy-focus: var(--accent-wellness);
 
   --max-width: 1180px;
   --gutter: clamp(1.25rem, 4vw, 3rem);
@@ -97,68 +116,70 @@
 }
 
 :root[data-theme="light"] {
-  /* Rojos pastel — tema papel */
-  --pastel-red: #f0d7d2;
-  --pastel-red-strong: #e3b4ad;
-  --pastel-red-soft: #f6e6e2;
-  --pastel-red-line: rgba(160, 42, 38, 0.24);
+  /* Rojo de énfasis para texto y foco sobre papel */
+  --pastel-red: #c8061a;
+  --pastel-red-strong: #e20714;
+  --pastel-red-soft: rgba(226, 7, 20, 0.08);
+  --pastel-red-line: rgba(226, 7, 20, 0.3);
 
-  /* Tokens semánticos — tema papel */
-  --bg: #e7e0d2;
-  --bg-deep: #dcd3c1;
-  --surface: #f0eadf;
-  --surface-raised: #f6f1e6;
-  --surface-soft: #e1d9c8;
-  --surface-muted: #e4ddcf;
-  --band: #e3dbcc;
-  --text: #1b1a16;
-  --text-strong: #111110;
-  --muted: rgba(27, 26, 22, 0.64);
-  --muted-strong: rgba(27, 26, 22, 0.84);
-  --line: rgba(27, 26, 22, 0.15);
-  --line-strong: rgba(27, 26, 22, 0.28);
-  --line-soft: rgba(27, 26, 22, 0.08);
-  --grid-line: rgba(27, 26, 22, 0.035);
-  --panel: #e4ddcf;
-  --header-bg: rgba(231, 224, 210, 0.93);
-  --overlay-bg: rgba(242, 237, 227, 0.96);
-  --footer-bg: #dfd7c7;
-  --accent-red: #a82a26;
-  --accent-orange: #9c5527;
-  --accent-teal: #346e5e;
-  --accent-orange-soft: rgba(156, 85, 39, 0.09);
-  --accent-teal-soft: rgba(52, 110, 94, 0.09);
-  --glow-red: rgba(168, 42, 38, 0.06);
-  --glow-teal: rgba(52, 110, 94, 0.05);
-  --orbit-glow: rgba(168, 42, 38, 0.14);
-  --orbit-teal-line: rgba(52, 110, 94, 0.26);
-  --core-halo: rgba(168, 42, 38, 0.1);
-  --core-highlight: #d4503f;
-  --core-deep: #6f1517;
-  --cta-deep: #6f1517;
-  --dot-halo: rgba(168, 42, 38, 0.12);
-  --focus: #a82a26;
-  --status-color: #a82a26;
-  --status-border: rgba(168, 42, 38, 0.3);
-  --soon-color: #a82a26;
-  --soon-border: rgba(168, 42, 38, 0.26);
-  --shadow: rgba(27, 26, 22, 0.16);
-  --card-shadow: 0 1rem 2.2rem rgba(27, 26, 22, 0.07);
-  --button-shadow: rgba(168, 42, 38, 0.2);
-  --cta-glow: rgba(240, 215, 210, 0.32);
-  --grain-opacity: 0.06;
+  /* Tokens semánticos — tema papel (papel del BrandBook #f6f4f5) */
+  --bg: var(--koa-paper);
+  --bg-deep: #efebe3;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --surface-soft: var(--we-cream);
+  --surface-muted: #efefeb;
+  --band: #efefeb;
+  --text: #050503;
+  --text-strong: #000000;
+  --muted: rgba(5, 5, 3, 0.68);
+  --muted-strong: rgba(5, 5, 3, 0.88);
+  --line: rgba(5, 5, 3, 0.14);
+  --line-strong: rgba(5, 5, 3, 0.3);
+  --line-soft: rgba(5, 5, 3, 0.07);
+  --grid-line: transparent;
+  --panel: #efefeb;
+  --header-bg: rgba(246, 244, 245, 0.94);
+  --overlay-bg: rgba(255, 255, 255, 0.97);
+  --footer-bg: var(--we-cream);
+  --accent-red: #d00616;
+  --accent-esports: var(--es-blue);
+  --accent-sports: #7a6e10;
+  --accent-wellness: #7a6b4a;
+  --accent-esports-soft: rgba(76, 101, 157, 0.1);
+  --accent-sports-soft: rgba(202, 184, 52, 0.18);
+  --accent-wellness-soft: rgba(171, 159, 122, 0.2);
+  --glow-red: transparent;
+  --glow-teal: transparent;
+  --orbit-glow: transparent;
+  --orbit-teal-line: rgba(122, 107, 74, 0.4);
+  --core-halo: rgba(226, 7, 20, 0.12);
+  --core-highlight: #ff545b;
+  --core-deep: #8f040d;
+  --cta-deep: #8f040d;
+  --dot-halo: rgba(226, 7, 20, 0.14);
+  --focus: #c8061a;
+  --status-color: #c8061a;
+  --status-border: rgba(200, 6, 26, 0.3);
+  --soon-color: #c8061a;
+  --soon-border: rgba(200, 6, 26, 0.26);
+  --shadow: rgba(5, 5, 3, 0.16);
+  --card-shadow: 0 1rem 2.2rem rgba(5, 5, 3, 0.08);
+  --button-shadow: rgba(226, 7, 20, 0.25);
+  --cta-glow: rgba(255, 255, 255, 0.2);
+  --grain-opacity: 0;
 
-  /* Filosofía — claro cálido del tema papel */
-  --philosophy-bg: #efe9dd;
-  --philosophy-text: #1b1a16;
-  --philosophy-muted: rgba(27, 26, 22, 0.64);
-  --philosophy-eyebrow: rgba(27, 26, 22, 0.6);
-  --philosophy-line: rgba(27, 26, 22, 0.13);
-  --philosophy-line-strong: rgba(27, 26, 22, 0.26);
-  --philosophy-card: #f7f2e8;
-  --philosophy-card-top: var(--accent-red);
-  --philosophy-index: #a82a26;
-  --philosophy-focus: #346e5e;
+  /* Filosofía — crema de WELLNESS del BrandBook */
+  --philosophy-bg: var(--we-cream);
+  --philosophy-text: #050503;
+  --philosophy-muted: rgba(5, 5, 3, 0.68);
+  --philosophy-eyebrow: rgba(5, 5, 3, 0.62);
+  --philosophy-line: rgba(5, 5, 3, 0.14);
+  --philosophy-line-strong: rgba(5, 5, 3, 0.28);
+  --philosophy-card: #f6f4f5;
+  --philosophy-card-top: var(--koa-red);
+  --philosophy-index: #c8061a;
+  --philosophy-focus: #7a6b4a;
 
   color-scheme: light;
 }
@@ -463,13 +484,12 @@ a {
 
 .button--primary {
   background-color: var(--accent-red);
-  background-image: linear-gradient(rgba(4, 9, 18, 0.18), rgba(4, 9, 18, 0.18));
   box-shadow: 0 0.8rem 2rem var(--button-shadow);
   color: var(--koa-bone);
 }
 
 .button--primary:hover {
-  background-image: linear-gradient(rgba(4, 9, 18, 0.3), rgba(4, 9, 18, 0.3));
+  background-color: #b80511;
   box-shadow: 0 1rem 2.5rem var(--button-shadow);
 }
 
@@ -642,8 +662,8 @@ a {
 }
 
 .orbit__ring--3::after {
-  background: var(--accent-teal);
-  box-shadow: 0 0 0.9rem var(--accent-teal);
+  background: var(--accent-wellness);
+  box-shadow: 0 0 0.9rem var(--accent-wellness);
 }
 
 .orbit__core {
@@ -751,12 +771,16 @@ a {
   box-shadow: 0 0 0.45rem var(--tag-dot);
 }
 
+.orbit__orbit--1 .orbit__tag {
+  --tag-dot: var(--accent-esports);
+}
+
 .orbit__orbit--2 .orbit__tag {
-  --tag-dot: var(--accent-orange);
+  --tag-dot: var(--accent-sports);
 }
 
 .orbit__orbit--3 .orbit__tag {
-  --tag-dot: var(--accent-teal);
+  --tag-dot: var(--accent-wellness);
 }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
@@ -907,8 +931,7 @@ a {
   padding: clamp(1.5rem, 3vw, 2.25rem);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background:
-    linear-gradient(155deg, var(--surface-raised), var(--surface) 58%);
+  background: var(--surface);
   box-shadow: var(--card-shadow);
   transition: transform 0.25s ease, border-color 0.25s ease,
     box-shadow 0.25s ease;
@@ -970,15 +993,15 @@ a {
 }
 
 .pillar--sport {
-  --pillar-accent: var(--accent-red);
+  --pillar-accent: var(--accent-sports);
 }
 
 .pillar--gaming {
-  --pillar-accent: var(--accent-orange);
+  --pillar-accent: var(--accent-esports);
 }
 
 .pillar--wellness {
-  --pillar-accent: var(--accent-teal);
+  --pillar-accent: var(--accent-wellness);
 }
 
 /* --------------------------------------------------------------------------
@@ -1010,8 +1033,7 @@ a {
   padding: clamp(1.5rem, 3vw, 2.15rem);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background:
-    linear-gradient(180deg, var(--surface-raised), var(--surface) 62%);
+  background: var(--surface);
   box-shadow: var(--card-shadow);
   transition: transform 0.25s ease, border-color 0.25s ease,
     box-shadow 0.25s ease;
@@ -1022,7 +1044,7 @@ a {
   position: absolute;
   inset: 0 0 auto;
   height: 2px;
-  background: linear-gradient(90deg, var(--unit-accent), transparent 82%);
+  background: var(--unit-accent);
   box-shadow: 0 0 1.2rem var(--unit-accent);
 }
 
@@ -1046,18 +1068,18 @@ a {
 }
 
 .unit-card--esports {
-  --unit-accent: var(--accent-orange);
-  --unit-wash: var(--accent-orange-soft);
+  --unit-accent: var(--accent-esports);
+  --unit-wash: var(--accent-esports-soft);
 }
 
 .unit-card--sports {
-  --unit-accent: var(--accent-red);
-  --unit-wash: var(--pastel-red-soft);
+  --unit-accent: var(--accent-sports);
+  --unit-wash: var(--accent-sports-soft);
 }
 
 .unit-card--wellness {
-  --unit-accent: var(--accent-teal);
-  --unit-wash: var(--accent-teal-soft);
+  --unit-accent: var(--accent-wellness);
+  --unit-wash: var(--accent-wellness-soft);
 }
 
 .unit-card__top {
@@ -1335,8 +1357,8 @@ a {
 }
 
 .branch {
-  --branch-accent: var(--accent-orange);
-  --branch-rule: var(--accent-orange);
+  --branch-accent: var(--accent-esports);
+  --branch-rule: var(--accent-esports);
   padding-block: clamp(2.5rem, 5vw, 4rem);
   border-top: 1px solid var(--line);
 }
@@ -1346,18 +1368,13 @@ a {
 }
 
 .branch--sports {
-  --branch-accent: var(--pastel-red);
-  --branch-rule: var(--accent-red);
-}
-
-:root[data-theme="light"] .branch--sports {
-  --branch-accent: var(--accent-red);
-  --branch-rule: var(--accent-red);
+  --branch-accent: var(--accent-sports);
+  --branch-rule: var(--accent-sports);
 }
 
 .branch--wellness {
-  --branch-accent: var(--accent-teal);
-  --branch-rule: var(--accent-teal);
+  --branch-accent: var(--accent-wellness);
+  --branch-rule: var(--accent-wellness);
 }
 
 .branch__aside {
@@ -1481,8 +1498,7 @@ a {
   padding: 0.95rem 0.9rem 1rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  background:
-    linear-gradient(180deg, var(--surface-raised), var(--surface));
+  background: var(--surface);
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -1670,9 +1686,7 @@ a {
   border: 1px solid var(--philosophy-line);
   border-top: 3px solid var(--philosophy-card-top);
   border-radius: var(--radius-sm);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 45%),
-    var(--philosophy-card);
+  background: var(--philosophy-card);
   transition: transform 0.25s ease, border-color 0.25s ease,
     box-shadow 0.25s ease;
 }
@@ -1743,11 +1757,7 @@ a {
   padding: clamp(2rem, 6vw, 4.5rem);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: calc(var(--radius) * 1.4);
-  background:
-    linear-gradient(120deg, rgba(4, 9, 18, 0.34), transparent 58%),
-    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.055) 0 1px, transparent 1px 16px),
-    radial-gradient(circle at 85% 10%, var(--cta-glow), transparent 42%),
-    linear-gradient(135deg, var(--accent-red), var(--cta-deep));
+  background: var(--koa-red);
   box-shadow: 0 2rem 4rem var(--shadow);
   color: var(--koa-bone);
 }
@@ -1857,8 +1867,7 @@ a {
   padding: 1.05rem 1.2rem;
   border: 1px solid var(--line);
   border-radius: calc(var(--radius-sm) * 1.2);
-  background:
-    linear-gradient(135deg, var(--surface-raised), var(--surface));
+  background: var(--surface);
   color: var(--text);
   text-decoration: none;
   transition: border-color 0.2s ease, background-color 0.2s ease,
@@ -1866,15 +1875,15 @@ a {
 }
 
 .channel--instagram {
-  --channel-accent: var(--accent-orange);
+  --channel-accent: var(--accent-esports);
 }
 
 .channel--whatsapp {
-  --channel-accent: var(--accent-teal);
+  --channel-accent: var(--accent-wellness);
 }
 
 .channel--tiktok {
-  --channel-accent: var(--pastel-red);
+  --channel-accent: var(--accent-sports);
 }
 
 :root[data-theme="light"] .channel--tiktok {
@@ -1912,8 +1921,7 @@ a {
   height: 2.9rem;
   border: 1px solid var(--line);
   border-radius: 0.8rem;
-  background:
-    linear-gradient(145deg, var(--surface-soft), var(--surface-raised));
+  background: var(--surface-soft);
   color: var(--channel-accent);
 }
 
@@ -2028,15 +2036,15 @@ a {
 }
 
 .footer__social-link--instagram {
-  --social-accent: var(--accent-orange);
+  --social-accent: var(--accent-esports);
 }
 
 .footer__social-link--whatsapp {
-  --social-accent: var(--accent-teal);
+  --social-accent: var(--accent-wellness);
 }
 
 .footer__social-link--tiktok {
-  --social-accent: var(--pastel-red);
+  --social-accent: var(--accent-sports);
 }
 
 :root[data-theme="light"] .footer__social-link--tiktok {

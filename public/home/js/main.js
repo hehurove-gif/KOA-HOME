@@ -438,7 +438,7 @@ function aplicarTema(tema, persistir) {
   const meta = document.querySelector('meta[name="theme-color"]');
 
   if (meta) {
-    meta.setAttribute("content", esClaro ? "#e7e0d2" : "#0c1219");
+    meta.setAttribute("content", esClaro ? "#f6f4f5" : "#050503");
   }
 }
 
