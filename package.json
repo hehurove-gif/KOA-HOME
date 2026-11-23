@@ -8,6 +8,7 @@
     "deploy": "wrangler deploy"
   },
   "devDependencies": {
+    "bootstrap": "^5.3.9",
     "wrangler": "^4"
   }
 }
