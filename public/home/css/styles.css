@@ -670,7 +670,24 @@ a {
 }
 
 .orbit__logo {
+  position: relative;
+  z-index: 1;
   width: 78%;
+}
+
+/* Brillo y sombra que giran sobre la esfera: la pelotita "rueda" al hacer
+   scroll y más rápido con el cursor encima (misma variable que las etiquetas,
+   que actualiza iniciarOrbita() en js/main.js). El logo queda derecho. */
+.orbit__core::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.42), transparent 42%),
+    radial-gradient(circle at 50% 94%, rgba(0, 0, 0, 0.3), transparent 52%);
+  transform: rotate(calc(var(--orbit-spin, 0deg) * 2));
+  pointer-events: none;
 }
 
 /* Etiquetas que orbitan alrededor del núcleo */
