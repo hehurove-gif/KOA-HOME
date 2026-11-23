@@ -4,15 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>KOA HUB — Transforma. Supera. Conecta.</title>
-  <meta name="description" content="KOA HUB integra KOA eSPORTS, KOA SPORTS y KOA WELLNESS en un ecosistema de deporte, gaming y bienestar.">
+  <meta name="description" content="KOA HUB reúne KOA eSPORTS, KOA SPORTS y KOA WELLNESS en un ecosistema de deporte, gaming y bienestar.">
   <meta name="theme-color" content="#0c1219">
   <link rel="canonical" href="https://koa-hub.com/home/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="assets/brand/favicon-192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="assets/brand/favicon-512.png">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <!-- Favicons: el script de abajo y main.js cambian entre claro y oscuro según el tema -->
+  <link rel="icon" id="favicon-32" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" data-light="assets/brand/favicon-32.png" data-dark="assets/brand/favicon-dark-32.png">
+  <link rel="icon" id="favicon-192" type="image/png" sizes="192x192" href="assets/brand/favicon-192.png" data-light="assets/brand/favicon-192.png" data-dark="assets/brand/favicon-dark-192.png">
+  <link rel="icon" id="favicon-512" type="image/png" sizes="512x512" href="assets/brand/favicon-512.png" data-light="assets/brand/favicon-512.png" data-dark="assets/brand/favicon-dark-512.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
   <script>
     (function () {
@@ -26,55 +27,60 @@
         if (meta) {
           meta.setAttribute("content", theme === "light" ? "#e7e0d2" : "#0c1219");
         }
+        document.querySelectorAll('link[rel="icon"][data-light]').forEach(function (link) {
+          link.setAttribute("href", link.getAttribute(theme === "light" ? "data-light" : "data-dark"));
+        });
       } catch (error) {
         document.documentElement.setAttribute("data-theme", "dark");
       }
     })();
   </script>
-  <!-- Bootstrap 5 en una capa CSS de baja prioridad: el CSS propio (sin capa) siempre
-       gana, así que no altera el diseño actual; las clases de Bootstrap (grid, utilidades)
-       quedan disponibles donde se usen. -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <style>
-    @layer bootstrap, site;
-    @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css") layer(bootstrap);
-  </style>
+  <link rel="stylesheet" href="vendor/bootstrap/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="vendor/bootstrap/bootstrap-utilities.min.css">
   <link rel="stylesheet" href="css/styles.css?v=20261122b">
 </head>
 <body>
 
-  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <a class="skip-link" href="#contenido" data-i18n="skip">Saltar al contenido principal</a>
 
   <header class="site-header">
     <div class="container site-header__inner">
-      <a class="brand" href="#inicio" aria-label="KOA HUB — Inicio">
+      <a class="brand" href="#inicio" aria-label="KOA HUB — Inicio" data-i18n-attr="aria-label:brand.aria">
         <img class="brand__logo" src="assets/brand/koa-logo-blanco.png" alt="KOA" width="271" height="124" data-logo-dark="assets/brand/koa-logo-blanco.png" data-logo-light="assets/brand/koa-logo-negro-transparente.png">
         <span class="brand__word">HUB</span>
       </a>
 
       <div class="site-header__actions">
-        <nav class="site-nav" aria-label="Navegación principal">
+        <nav class="site-nav" aria-label="Navegación principal" data-i18n-attr="aria-label:nav.aria">
           <ul class="site-nav__list">
-            <li><a class="site-nav__link" href="#inicio">Inicio</a></li>
-            <li><a class="site-nav__link" href="#ecosistema">Ecosistema</a></li>
-            <li><a class="site-nav__link" href="#fuerzas">Fuerzas</a></li>
-            <li><a class="site-nav__link" href="#filosofia">Filosofía</a></li>
-            <li><a class="site-nav__link" href="#contacto">Contacto</a></li>
+            <li><a class="site-nav__link" href="#inicio" data-i18n="nav.home">Inicio</a></li>
+            <li><a class="site-nav__link" href="#ecosistema" data-i18n="nav.eco">Ecosistema</a></li>
+            <li><a class="site-nav__link" href="#fuerzas" data-i18n="nav.forces">Fuerzas</a></li>
+            <li><a class="site-nav__link" href="#filosofia" data-i18n="nav.phil">Filosofía</a></li>
+            <li><a class="site-nav__link" href="#contacto" data-i18n="nav.contact">Contacto</a></li>
           </ul>
         </nav>
 
-        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar a modo claro">
-          <span class="theme-toggle__icon" aria-hidden="true">
-            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false">
-              <circle cx="12" cy="12" r="4"></circle>
-              <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path>
-            </svg>
-            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          </span>
-          <span class="theme-toggle__label">Modo claro</span>
-        </button>
+        <div class="site-header__tools d-flex align-items-center gap-2">
+          <div class="lang-switch d-inline-flex" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.aria">
+            <button class="lang-switch__btn" type="button" data-lang="es" lang="es" aria-label="Español" aria-pressed="true">ES</button>
+            <button class="lang-switch__btn" type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+            <button class="lang-switch__btn" type="button" data-lang="ja" lang="ja" aria-label="日本語" aria-pressed="false">日本語</button>
+          </div>
+
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar a modo claro">
+            <span class="theme-toggle__icon" aria-hidden="true">
+              <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path>
+              </svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </span>
+            <span class="theme-toggle__label">Modo claro</span>
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -82,52 +88,50 @@
   <main id="contenido" class="site-main">
 
     <section class="hero" id="inicio" aria-labelledby="inicio-titulo">
-      <div class="container hero__grid">
-        <div class="hero__content">
-          <p class="eyebrow">
-            <span class="eyebrow__dot" aria-hidden="true"></span>
-            Ecosistema KOA
-          </p>
-          <h1 class="hero__title" id="inicio-titulo">
-            KOA <span class="hero__title-alt">HUB</span>
-          </h1>
-          <p class="hero__claim">Transforma. Supera. Conecta.</p>
-          <p class="hero__text">
-            KOA integra el deporte, el gaming y el bienestar en un ecosistema de
-            experiencias y comunidad. Un mismo punto de partida, tres formas de
-            crecer y de encontrarse con otros.
-          </p>
-          <div class="hero__actions">
-            <a class="button button--primary" href="#fuerzas">Explorar las fuerzas</a>
-            <a class="button button--ghost" href="#ecosistema">Conocer el ecosistema</a>
+      <div class="container">
+        <div class="hero__grid row align-items-center g-5">
+          <div class="hero__content col-lg-7">
+            <p class="eyebrow">
+              <span class="eyebrow__dot" aria-hidden="true"></span>
+              <span data-i18n="hero.eyebrow">Ecosistema KOA</span>
+            </p>
+            <h1 class="hero__title" id="inicio-titulo">
+              KOA <span class="hero__title-alt">HUB</span>
+            </h1>
+            <p class="hero__claim" data-i18n="hero.claim">Transforma. Supera. Conecta.</p>
+            <p class="hero__text" data-i18n="hero.text">KOA reúne deporte, gaming y bienestar en una misma comunidad. Un solo punto de partida y tres formas de crecer y conectar con otros.</p>
+            <div class="hero__actions">
+              <a class="button button--primary" href="#fuerzas" data-i18n="hero.cta1">Explorar las fuerzas</a>
+              <a class="button button--ghost" href="#ecosistema" data-i18n="hero.cta2">Conocer el ecosistema</a>
+            </div>
           </div>
-        </div>
 
-        <div class="hero__visual" aria-hidden="true">
-          <div class="orbit">
-            <span class="orbit__ring orbit__ring--1"></span>
-            <span class="orbit__ring orbit__ring--2"></span>
-            <span class="orbit__ring orbit__ring--3"></span>
-            <div class="orbit__core">
-              <img class="orbit__logo" src="assets/brand/koa-logo-blanco-transparente.png" alt="" width="271" height="124">
-            </div>
-            <div class="orbit__orbit orbit__orbit--1">
-              <div class="orbit__tag-wrap">
-                <span class="orbit__tag">eSPORTS</span>
+          <div class="hero__visual col-lg-5" aria-hidden="true">
+            <div class="orbit">
+              <span class="orbit__ring orbit__ring--1"></span>
+              <span class="orbit__ring orbit__ring--2"></span>
+              <span class="orbit__ring orbit__ring--3"></span>
+              <div class="orbit__core">
+                <img class="orbit__logo" src="assets/brand/koa-logo-blanco-transparente.png" alt="" width="271" height="124">
+              </div>
+              <div class="orbit__orbit orbit__orbit--1">
+                <div class="orbit__tag-wrap">
+                  <span class="orbit__tag">eSPORTS</span>
+                </div>
+              </div>
+              <div class="orbit__orbit orbit__orbit--2">
+                <div class="orbit__tag-wrap">
+                  <span class="orbit__tag">SPORTS</span>
+                </div>
+              </div>
+              <div class="orbit__orbit orbit__orbit--3">
+                <div class="orbit__tag-wrap">
+                  <span class="orbit__tag">WELLNESS</span>
+                </div>
               </div>
             </div>
-            <div class="orbit__orbit orbit__orbit--2">
-              <div class="orbit__tag-wrap">
-                <span class="orbit__tag">SPORTS</span>
-              </div>
-            </div>
-            <div class="orbit__orbit orbit__orbit--3">
-              <div class="orbit__tag-wrap">
-                <span class="orbit__tag">WELLNESS</span>
-              </div>
-            </div>
+            <p class="hero__visual-note" data-i18n="hero.note">Tres fuerzas. Una misma actitud.</p>
           </div>
-          <p class="hero__visual-note">Tres fuerzas. Una misma actitud.</p>
         </div>
       </div>
     </section>
@@ -136,20 +140,20 @@
       <div class="marquee__viewport">
         <div class="marquee__track">
           <div class="marquee__group">
-            <span>Transforma</span><span class="marquee__dot">·</span>
-            <span>Supera</span><span class="marquee__dot">·</span>
-            <span>Conecta</span><span class="marquee__dot">·</span>
-            <span>Deporte</span><span class="marquee__dot">·</span>
-            <span>Gaming</span><span class="marquee__dot">·</span>
-            <span>Bienestar</span><span class="marquee__dot">·</span>
+            <span data-i18n="m.transform">Transforma</span><span class="marquee__dot">·</span>
+            <span data-i18n="m.surpass">Supera</span><span class="marquee__dot">·</span>
+            <span data-i18n="m.connect">Conecta</span><span class="marquee__dot">·</span>
+            <span data-i18n="m.sport">Deporte</span><span class="marquee__dot">·</span>
+            <span data-i18n="m.gaming">Gaming</span><span class="marquee__dot">·</span>
+            <span data-i18n="m.wellness">Bienestar</span><span class="marquee__dot">·</span>
           </div>
           <div class="marquee__group">
-            <span>Transforma</span><span class="marquee__dot">·</span>
-            <span>Supera</span><span class="marquee__dot">·</span>
-            <span>Conecta</span><span class="marquee__dot">·</span>
-            <span>Deporte</span><span class="marquee__dot">·</span>
-            <span>Gaming</span><span class="marquee__dot">·</span>
-            <span>Bienestar</span><span class="marquee__dot">·</span>
+            <span data-i18n="m.transform">Transforma</span><span class="marquee__dot">·</span>
+            <span data-i18n="m.surpass">Supera</span><span class="marquee__dot">·</span>
+            <span data-i18n="m.connect">Conecta</span><span class="marquee__dot">·</span>
+            <span data-i18n="m.sport">Deporte</span><span class="marquee__dot">·</span>
+            <span data-i18n="m.gaming">Gaming</span><span class="marquee__dot">·</span>
+            <span data-i18n="m.wellness">Bienestar</span><span class="marquee__dot">·</span>
           </div>
         </div>
       </div>
@@ -157,34 +161,40 @@
 
     <section class="section section--ecosystem" id="ecosistema" aria-labelledby="ecosistema-titulo">
       <div class="container">
-        <div class="section__head">
-          <div class="section__heading">
+        <div class="section__head row align-items-end gy-4">
+          <div class="section__heading col-lg-7">
             <p class="eyebrow">
               <span class="eyebrow__dot" aria-hidden="true"></span>
-              01 / Ecosistema
+              <span data-i18n="eco.eyebrow">01 / Ecosistema</span>
             </p>
-            <h2 class="section__title" id="ecosistema-titulo">Ecosistema KOA</h2>
+            <h2 class="section__title" id="ecosistema-titulo" data-i18n="eco.title">Ecosistema KOA</h2>
           </div>
-          <p class="section__lead">
-            Tres formas de moverse, una misma filosofía: crecer, competir y conectar.
-          </p>
+          <div class="col-lg-5">
+            <p class="section__lead" data-i18n="eco.lead">Tres formas de moverse y una misma filosofía: crecer, competir y conectar.</p>
+          </div>
         </div>
 
-        <ul class="pillars">
-          <li class="pillar pillar--sport">
-            <span class="pillar__index" aria-hidden="true">01</span>
-            <h3 class="pillar__title">Deporte</h3>
-            <p class="pillar__text">Movimiento, rendimiento y superación.</p>
+        <ul class="pillars row row-cols-1 row-cols-md-3 g-3">
+          <li class="col">
+            <div class="pillar pillar--gaming h-100">
+              <span class="pillar__index" aria-hidden="true">01</span>
+              <h3 class="pillar__title">eSPORTS</h3>
+              <p class="pillar__text" data-i18n="pillar.esports">Estrategia, competencia y conexión.</p>
+            </div>
           </li>
-          <li class="pillar pillar--gaming">
-            <span class="pillar__index" aria-hidden="true">02</span>
-            <h3 class="pillar__title">Gaming</h3>
-            <p class="pillar__text">Estrategia, competencia y conexión.</p>
+          <li class="col">
+            <div class="pillar pillar--sport h-100">
+              <span class="pillar__index" aria-hidden="true">02</span>
+              <h3 class="pillar__title">SPORTS</h3>
+              <p class="pillar__text" data-i18n="pillar.sports">Movimiento, rendimiento y superación.</p>
+            </div>
           </li>
-          <li class="pillar pillar--wellness">
-            <span class="pillar__index" aria-hidden="true">03</span>
-            <h3 class="pillar__title">Wellness</h3>
-            <p class="pillar__text">Bienestar, presencia y transformación.</p>
+          <li class="col">
+            <div class="pillar pillar--wellness h-100">
+              <span class="pillar__index" aria-hidden="true">03</span>
+              <h3 class="pillar__title">WELLNESS</h3>
+              <p class="pillar__text" data-i18n="pillar.wellness">Bienestar, presencia y transformación.</p>
+            </div>
           </li>
         </ul>
       </div>
@@ -192,30 +202,21 @@
 
     <section class="section section--units" id="fuerzas" aria-labelledby="fuerzas-titulo">
       <div class="container">
-        <div class="section__head">
-          <div class="section__heading">
+        <div class="section__head row align-items-end gy-4">
+          <div class="section__heading col-lg-7">
             <p class="eyebrow">
               <span class="eyebrow__dot" aria-hidden="true"></span>
-              02 / Fuerzas
+              <span data-i18n="forces.eyebrow">02 / Fuerzas</span>
             </p>
-            <h2 class="section__title" id="fuerzas-titulo">Tres fuerzas, un mismo origen</h2>
+            <h2 class="section__title" id="fuerzas-titulo" data-i18n="forces.title">Tres fuerzas, un mismo origen</h2>
           </div>
-          <div class="section__intro">
-            <p class="section__lead">
-              KOA se despliega en tres fuerzas que transforman a las personas de
-              maneras distintas. KOA eSPORTS convierte el juego en comunidad; KOA
-              SPORTS convierte el esfuerzo en carácter; KOA WELLNESS convierte el
-              bienestar en una forma de habitar la vida.
-            </p>
-            <p class="section__lead">
-              Cada una tiene su propio terreno, su propio lenguaje y su propia
-              comunidad, pero las tres nacen del mismo lugar: el movimiento como
-              herramienta para volver a ti.
-            </p>
+          <div class="section__intro col-lg-5">
+            <p class="section__lead" data-i18n="forces.lead1">KOA se despliega en tres fuerzas. KOA eSPORTS convierte el juego en comunidad, KOA SPORTS convierte el esfuerzo en carácter y KOA WELLNESS convierte el bienestar en una forma de vivir.</p>
+            <p class="section__lead" data-i18n="forces.lead2">Cada una tiene su propio terreno, su propio lenguaje y su propia comunidad, pero las tres nacen del mismo lugar: el movimiento como herramienta para volver a ti.</p>
           </div>
         </div>
 
-        <div id="fuerzas-lista" class="units__grid"></div>
+        <div id="fuerzas-lista" class="units__grid row row-cols-1 row-cols-lg-3 g-3"></div>
 
         <noscript>
           <div class="noscript">
@@ -264,196 +265,171 @@
 
     <section class="section section--branches" id="fuerzas-detalle" aria-labelledby="fuerzas-detalle-titulo">
       <div class="container">
-        <div class="section__head">
-          <div class="section__heading">
+        <div class="section__head row align-items-end gy-4">
+          <div class="section__heading col-lg-7">
             <p class="eyebrow">
               <span class="eyebrow__dot" aria-hidden="true"></span>
-              03 / Las fuerzas a fondo
+              <span data-i18n="detail.eyebrow">03 / Las fuerzas a fondo</span>
             </p>
-            <h2 class="section__title" id="fuerzas-detalle-titulo">Lo que hay detrás de cada fuerza</h2>
+            <h2 class="section__title" id="fuerzas-detalle-titulo" data-i18n="detail.title">Lo que hay detrás de cada fuerza</h2>
           </div>
-          <p class="section__lead">
-            Cada fuerza tiene su propio territorio, su promesa y su manera de
-            vivirse.
-          </p>
+          <div class="col-lg-5">
+            <p class="section__lead" data-i18n="detail.lead">Cada fuerza tiene su propio territorio, su promesa y su manera de vivirse.</p>
+          </div>
         </div>
 
         <div class="branches">
           <article class="branch branch--esports" id="detalle-esports" aria-labelledby="detalle-esports-titulo">
-            <div class="branch__aside">
-              <p class="branch__index">01 / eSPORTS</p>
-              <h3 class="branch__name" id="detalle-esports-titulo">KOA eSPORTS</h3>
-              <p class="branch__promise">Momentos de conexión</p>
-              <p class="branch__claim"><em lang="en">Play. Compete. Belong.</em></p>
-            </div>
-            <div class="branch__body">
-              <p class="branch__lead">
-                KOA eSports no es solo un club de videojuegos competitivos: es un
-                ecosistema de entretenimiento, comunidad y alto rendimiento
-                diseñado por y para la Generación Z.
-              </p>
-              <p>
-                Nace del deseo de pertenencia absoluta y de la tarde de videojuegos
-                con amigos donde nadie se queda fuera. Aquí la pantalla no aísla:
-                une. Se compite en serio —torneos rankeados en SuperMajor que suman
-                al Top de México— y se hace accesible: la entrada incluye alimentos
-                y un precio pensado para que todos puedan jugar.
-              </p>
-
-              <div class="branch__focus">
-                <h4 class="branch__subheading">Enfoque</h4>
-                <ul class="branch__focus-list">
-                  <li>
-                    <strong>Competitivo</strong>
-                    <span>Competimos para mejorar, no solo para ganar.</span>
-                  </li>
-                  <li>
-                    <strong>Comunidad</strong>
-                    <span>La comunidad es nuestro motor.</span>
-                  </li>
-                  <li>
-                    <strong>Crecimiento</strong>
-                    <span>En KOA creces como jugador y como persona.</span>
-                  </li>
-                </ul>
+            <div class="row gy-4 gx-lg-5">
+              <div class="branch__aside col-lg-4">
+                <p class="branch__index">01 / eSPORTS</p>
+                <h3 class="branch__name" id="detalle-esports-titulo">KOA eSPORTS</h3>
+                <p class="branch__promise" data-i18n="promise.esports">Momentos de conexión</p>
+                <p class="branch__claim"><em lang="en">Play. Compete. Belong.</em></p>
               </div>
+              <div class="branch__body col-lg-8">
+                <p class="branch__lead" data-i18n="b.es.lead">KOA eSports no es solo un club de videojuegos competitivos: es un ecosistema de entretenimiento, comunidad y alto rendimiento diseñado por y para la Generación Z.</p>
+                <p data-i18n="b.es.body">Nace de las ganas de pertenecer y de esas tardes de videojuegos con amigos donde nadie se queda fuera. Aquí la pantalla no aísla: une. Se compite en serio, con torneos rankeados en SuperMajor que suman al Top de México, y a la vez es accesible: la entrada incluye alimentos y tiene un precio pensado para que todos puedan jugar.</p>
 
-              <div class="branch__creates">
-                <h4 class="branch__subheading">Qué creamos</h4>
-                <ul class="branch__chips">
-                  <li>Torneos y retas</li>
-                  <li>Roster y jugadores</li>
-                  <li>Contenido y comunidad</li>
-                  <li>KOA Labs</li>
-                  <!-- Pendiente: Equipo representativo de KOA eSPORTS. -->
-                </ul>
+                <div class="branch__focus">
+                  <h4 class="branch__subheading" data-i18n="focus.h">Enfoque</h4>
+                  <ul class="branch__focus-list">
+                    <li>
+                      <strong data-i18n="f.es.1.t">Competitivo</strong>
+                      <span data-i18n="f.es.1.d">Competimos para mejorar, no solo para ganar.</span>
+                    </li>
+                    <li>
+                      <strong data-i18n="f.es.2.t">Comunidad</strong>
+                      <span data-i18n="f.es.2.d">La comunidad es nuestro motor.</span>
+                    </li>
+                    <li>
+                      <strong data-i18n="f.es.3.t">Crecimiento</strong>
+                      <span data-i18n="f.es.3.d">En KOA creces como jugador y como persona.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="branch__creates">
+                  <h4 class="branch__subheading" data-i18n="create.h">Qué creamos</h4>
+                  <ul class="branch__chips">
+                    <li data-i18n="chip.es.1">Torneos y retas</li>
+                    <li data-i18n="chip.es.2">Roster y jugadores</li>
+                    <li data-i18n="chip.es.3">Contenido y comunidad</li>
+                    <li>KOA Labs</li>
+                    <!-- Pendiente: Equipo representativo de KOA eSPORTS. -->
+                  </ul>
+                </div>
+
+                <blockquote class="branch__quote" data-i18n="q.es">
+                  “Llegas a jugar y te quedas por la gente.”
+                </blockquote>
+
+                <a class="branch__link" href="https://esports.koa-hub.com/" target="_blank" rel="noopener noreferrer" aria-label="Visitar el sitio de eSPORTS (se abre en una pestaña nueva)" data-i18n-attr="aria-label:link.esports.aria">
+                  <span data-i18n="link.esports">Visitar el sitio de eSPORTS</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
               </div>
-
-              <blockquote class="branch__quote">
-                “Llegas a jugar y te quedas por la gente.”
-              </blockquote>
-
-              <a class="branch__link" href="https://esports.koa-hub.com/" target="_blank" rel="noopener noreferrer" aria-label="Visitar el sitio de eSPORTS (se abre en una pestaña nueva)">
-                Visitar el sitio de eSPORTS
-                <span aria-hidden="true">↗</span>
-              </a>
             </div>
           </article>
 
           <article class="branch branch--sports" id="detalle-sports" aria-labelledby="detalle-sports-titulo">
-            <div class="branch__aside">
-              <p class="branch__index">02 / SPORTS</p>
-              <h3 class="branch__name" id="detalle-sports-titulo">KOA SPORTS</h3>
-              <p class="branch__promise">Momentos de superación</p>
-              <p class="branch__claim"><em>Tú después de tu límite.</em></p>
-            </div>
-            <div class="branch__body">
-              <p class="branch__lead">
-                KOA Sports nace en el punto exacto donde el esfuerzo se convierte
-                en transformación: la explosividad de la pista de hockey, la
-                velocidad de un sprint, la última repetición.
-              </p>
-              <p>
-                No creemos que el deporte exista únicamente para ganar. Creemos que
-                competir es una herramienta para descubrir quién eres cuando la
-                comodidad deja de ser una opción. El rendimiento es una expresión
-                integral de la vida: la disciplina se convierte en carácter, la
-                competencia en liderazgo y la resiliencia en calidad de vida.
-              </p>
-
-              <div class="branch__focus">
-                <h4 class="branch__subheading">Enfoque</h4>
-                <ul class="branch__focus-list">
-                  <li>
-                    <strong>Train hard</strong>
-                    <span>Entrena con disciplina y sostén el esfuerzo cuando nadie está mirando.</span>
-                  </li>
-                  <li>
-                    <strong>Play smart</strong>
-                    <span>Compite con inteligencia, estrategia y lectura del juego.</span>
-                  </li>
-                  <li>
-                    <strong>Stay human</strong>
-                    <span>Ninguna victoria individual existe completamente sola.</span>
-                  </li>
-                </ul>
+            <div class="row gy-4 gx-lg-5">
+              <div class="branch__aside col-lg-4">
+                <p class="branch__index">02 / SPORTS</p>
+                <h3 class="branch__name" id="detalle-sports-titulo">KOA SPORTS</h3>
+                <p class="branch__promise" data-i18n="promise.sports">Momentos de superación</p>
+                <p class="branch__claim"><em lang="es" data-i18n="claim.sports" data-i18n-setlang>Tú después de tu límite.</em></p>
               </div>
+              <div class="branch__body col-lg-8">
+                <p class="branch__lead" data-i18n="b.sp.lead">KOA Sports nace en el punto exacto donde el esfuerzo se convierte en transformación: la explosividad de la pista de hockey, la velocidad de un sprint, la última repetición.</p>
+                <p data-i18n="b.sp.body">Para nosotros el deporte no existe solo para ganar. Competir es una herramienta para descubrir quién eres cuando la comodidad deja de ser una opción. Rendir bien es una forma de vivir bien: la disciplina se vuelve carácter, la competencia se vuelve liderazgo y la resiliencia se vuelve calidad de vida.</p>
 
-              <div class="branch__creates">
-                <h4 class="branch__subheading">Qué creamos</h4>
-                <ul class="branch__chips">
-                  <li>KOA Performance</li>
-                  <li>KOA Competitions</li>
-                  <li>KOA Expeditions</li>
-                  <li>KOA Athlete Lab</li>
-                  <li>KOA Community</li>
-                </ul>
+                <div class="branch__focus">
+                  <h4 class="branch__subheading" data-i18n="focus.h">Enfoque</h4>
+                  <ul class="branch__focus-list">
+                    <li>
+                      <strong>Train hard</strong>
+                      <span data-i18n="f.sp.1.d">Entrena con disciplina y sostén el esfuerzo cuando nadie está mirando.</span>
+                    </li>
+                    <li>
+                      <strong>Play smart</strong>
+                      <span data-i18n="f.sp.2.d">Compite con inteligencia, estrategia y lectura del juego.</span>
+                    </li>
+                    <li>
+                      <strong>Stay human</strong>
+                      <span data-i18n="f.sp.3.d">Ninguna victoria individual existe completamente sola.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="branch__creates">
+                  <h4 class="branch__subheading" data-i18n="create.h">Qué creamos</h4>
+                  <ul class="branch__chips">
+                    <li>KOA Performance</li>
+                    <li>KOA Competitions</li>
+                    <li>KOA Expeditions</li>
+                    <li>KOA Athlete Lab</li>
+                    <li>KOA Community</li>
+                  </ul>
+                </div>
+
+                <blockquote class="branch__quote" data-i18n="q.sp">
+                  “Las leyendas se sudan.”
+                </blockquote>
+
+                <a class="branch__link" href="https://koa-hub.com/tickets/" target="_blank" rel="noopener noreferrer" aria-label="Ver KOA XHOCK (se abre en una pestaña nueva)" data-i18n-attr="aria-label:link.xhock.aria">
+                  <span data-i18n="link.xhock">Ver KOA XHOCK</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+                <!-- Pendiente: KOA Fútbol (disciplina de KOA SPORTS). -->
               </div>
-
-              <blockquote class="branch__quote">
-                “Las leyendas se sudan.”
-              </blockquote>
-
-              <a class="branch__link" href="https://koa-hub.com/tickets/" target="_blank" rel="noopener noreferrer" aria-label="Ver KOA XHOCK (se abre en una pestaña nueva)">
-                Ver KOA XHOCK
-                <span aria-hidden="true">↗</span>
-              </a>
-              <!-- Pendiente: KOA Fútbol (disciplina de KOA SPORTS). -->
             </div>
           </article>
 
           <article class="branch branch--wellness" id="detalle-wellness" aria-labelledby="detalle-wellness-titulo">
-            <div class="branch__aside">
-              <p class="branch__index">03 / WELLNESS</p>
-              <h3 class="branch__name" id="detalle-wellness-titulo">KOA WELLNESS</h3>
-              <p class="branch__promise">Estados de transformación</p>
-              <p class="branch__claim"><em lang="en">Become More of You.</em></p>
-            </div>
-            <div class="branch__body">
-              <p class="branch__lead">
-                KOA Wellness nace de la necesidad de sanar, de respirar profundo
-                tras el colapso y de encontrar el silencio en un mundo
-                hiperestimulado.
-              </p>
-              <p>
-                Integra bienestar, neuroperformance y behavioural science para
-                transformar la manera en que habitamos el cuerpo, gestionamos la
-                energía y expandimos la conciencia. Su principio es Return on
-                Health: convertir la salud en el activo más rentable de tu vida.
-                No busca que seas alguien más; busca que seas más de ti.
-              </p>
-
-              <div class="branch__focus">
-                <h4 class="branch__subheading">Enfoque</h4>
-                <ul class="branch__focus-list">
-                  <li>
-                    <strong>Return on Health</strong>
-                    <span>Más energía, claridad y presencia: la salud como inversión.</span>
-                  </li>
-                  <li>
-                    <strong>Modern Magic</strong>
-                    <span>Ciencia, tecnología y rituales ancestrales en una misma experiencia.</span>
-                  </li>
-                  <li>
-                    <strong>Inner Balance</strong>
-                    <span>La capacidad de volver a ti una y otra vez.</span>
-                  </li>
-                </ul>
+            <div class="row gy-4 gx-lg-5">
+              <div class="branch__aside col-lg-4">
+                <p class="branch__index">03 / WELLNESS</p>
+                <h3 class="branch__name" id="detalle-wellness-titulo">KOA WELLNESS</h3>
+                <p class="branch__promise" data-i18n="promise.wellness">Estados de transformación</p>
+                <p class="branch__claim"><em lang="en">Become More of You.</em></p>
               </div>
+              <div class="branch__body col-lg-8">
+                <p class="branch__lead" data-i18n="b.we.lead">KOA Wellness nace de la necesidad de sanar, de respirar profundo tras el colapso y de encontrar el silencio en un mundo hiperestimulado.</p>
+                <p data-i18n="b.we.body">Combina bienestar, neuroperformance y behavioural science para cambiar cómo habitamos el cuerpo, cómo manejamos la energía y cómo expandimos la conciencia. Su principio es Return on Health: hacer de la salud el activo más rentable de tu vida. No busca que seas alguien más, sino que seas más de ti.</p>
 
-              <div class="branch__creates">
-                <h4 class="branch__subheading">Qué creamos</h4>
-                <ul class="branch__chips">
-                  <li>KOA Experiences</li>
-                  <li>KOA Rituals</li>
-                  <li>KOA Digital</li>
-                  <li>KOA Community</li>
-                </ul>
+                <div class="branch__focus">
+                  <h4 class="branch__subheading" data-i18n="focus.h">Enfoque</h4>
+                  <ul class="branch__focus-list">
+                    <li>
+                      <strong>Return on Health</strong>
+                      <span data-i18n="f.we.1.d">Más energía, claridad y presencia: la salud como inversión.</span>
+                    </li>
+                    <li>
+                      <strong>Modern Magic</strong>
+                      <span data-i18n="f.we.2.d">Ciencia, tecnología y rituales ancestrales en una misma experiencia.</span>
+                    </li>
+                    <li>
+                      <strong>Inner Balance</strong>
+                      <span data-i18n="f.we.3.d">La capacidad de volver a ti una y otra vez.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="branch__creates">
+                  <h4 class="branch__subheading" data-i18n="create.h">Qué creamos</h4>
+                  <ul class="branch__chips">
+                    <li>KOA Experiences</li>
+                    <li>KOA Rituals</li>
+                    <li>KOA Digital</li>
+                    <li>KOA Community</li>
+                  </ul>
+                </div>
+
+                <blockquote class="branch__quote" data-i18n="q.we">
+                  “No necesitas convertirte en alguien más. Necesitas ser más de ti.”
+                </blockquote>
               </div>
-
-              <blockquote class="branch__quote">
-                “No necesitas convertirte en alguien más. Necesitas ser más de ti.”
-              </blockquote>
             </div>
           </article>
         </div>
@@ -462,60 +438,54 @@
 
     <section class="philosophy" id="filosofia" aria-labelledby="filosofia-titulo">
       <div class="container">
-        <div class="philosophy__head">
-          <div class="section__heading">
+        <div class="philosophy__head row align-items-end gy-4">
+          <div class="section__heading col-lg-7">
             <p class="eyebrow">
               <span class="eyebrow__dot" aria-hidden="true"></span>
-              04 / Filosofía
+              <span data-i18n="phil.eyebrow">04 / Filosofía</span>
             </p>
-            <h2 class="philosophy__title" id="filosofia-titulo">Filosofía compartida</h2>
+            <h2 class="philosophy__title" id="filosofia-titulo" data-i18n="phil.title">Filosofía compartida</h2>
           </div>
-          <p class="philosophy__lead">
-            Las disciplinas cambian; la manera de afrontarlas no. Estos cinco
-            valores son el punto de encuentro de las tres fuerzas de KOA.
-          </p>
+          <div class="col-lg-5">
+            <p class="philosophy__lead" data-i18n="phil.lead">Las disciplinas cambian; la manera de afrontarlas no. Estos cinco valores son el punto de encuentro de las tres fuerzas de KOA.</p>
+          </div>
         </div>
 
-        <ol class="values">
-          <li class="value">
-            <span class="value__index" aria-hidden="true">01</span>
-            <h3 class="value__title">Voluntad</h3>
-            <p class="value__text">
-              La decisión de empezar y la disciplina de sostener el esfuerzo
-              cuando el resultado todavía no llega.
-            </p>
+        <ol class="values row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-5 g-3">
+          <li class="col">
+            <div class="value h-100">
+              <span class="value__index" aria-hidden="true">01</span>
+              <h3 class="value__title" data-i18n="v1.t">Voluntad</h3>
+              <p class="value__text" data-i18n="v1.d">La decisión inquebrantable de avanzar, incluso cuando todo dentro de ti quiere rendirse. Es elegir el movimiento sobre la parálisis.</p>
+            </div>
           </li>
-          <li class="value">
-            <span class="value__index" aria-hidden="true">02</span>
-            <h3 class="value__title">Vitalidad</h3>
-            <p class="value__text">
-              Cuidar el cuerpo, la mente y la energía con los que afrontamos cada
-              entrenamiento, cada partida y cada día.
-            </p>
+          <li class="col">
+            <div class="value h-100">
+              <span class="value__index" aria-hidden="true">02</span>
+              <h3 class="value__title" data-i18n="v2.t">Vitalidad</h3>
+              <p class="value__text" data-i18n="v2.d">Elegimos vivir intensamente. Sentimos, jugamos, competimos y nos expandimos con energía total.</p>
+            </div>
           </li>
-          <li class="value">
-            <span class="value__index" aria-hidden="true">03</span>
-            <h3 class="value__title">Evolución constante</h3>
-            <p class="value__text">
-              Entender el progreso como un proceso: mejorar un poco cada día, sin
-              buscar atajos ni compararse con nadie.
-            </p>
+          <li class="col">
+            <div class="value h-100">
+              <span class="value__index" aria-hidden="true">03</span>
+              <h3 class="value__title" data-i18n="v3.t">Evolución constante</h3>
+              <p class="value__text" data-i18n="v3.d">Cada reto, cada caída y cada victoria es una oportunidad para convertirnos en una versión más fuerte, consciente y libre de nosotros mismos.</p>
+            </div>
           </li>
-          <li class="value">
-            <span class="value__index" aria-hidden="true">04</span>
-            <h3 class="value__title">Unión</h3>
-            <p class="value__text">
-              Crecer dentro de una comunidad que acompaña, compite con respeto y
-              celebra los logros de los demás.
-            </p>
+          <li class="col">
+            <div class="value h-100">
+              <span class="value__index" aria-hidden="true">04</span>
+              <h3 class="value__title" data-i18n="v4.t">Unión</h3>
+              <p class="value__text" data-i18n="v4.d">En KOA, cada persona es bienvenida tal como es: sin etiquetas, sin juicios, sin importar su historia o nivel.</p>
+            </div>
           </li>
-          <li class="value">
-            <span class="value__index" aria-hidden="true">05</span>
-            <h3 class="value__title">Propósito</h3>
-            <p class="value__text">
-              Tener claro hacia dónde se avanza y por qué, para que cada paso
-              tenga sentido dentro del ecosistema.
-            </p>
+          <li class="col">
+            <div class="value h-100">
+              <span class="value__index" aria-hidden="true">05</span>
+              <h3 class="value__title" data-i18n="v5.t">Propósito</h3>
+              <p class="value__text" data-i18n="v5.d">Vivir con propósito es entender que cada decisión construye quién eres y hacia dónde vas.</p>
+            </div>
           </li>
         </ol>
       </div>
@@ -526,74 +496,73 @@
         <div class="cta">
           <p class="eyebrow">
             <span class="eyebrow__dot" aria-hidden="true"></span>
-            05 / Explora
+            <span data-i18n="cta.eyebrow">05 / Explora</span>
           </p>
-          <h2 class="cta__title" id="explora-titulo">Tres formas de ser KOA.</h2>
-          <p class="cta__text">
-            Deporte, gaming y bienestar conviven en un mismo ecosistema. Encuentra
-            tu punto de entrada.
-          </p>
-          <a class="button button--inverse" href="#fuerzas">Ver las tres fuerzas</a>
+          <h2 class="cta__title" id="explora-titulo" data-i18n="cta.title">Tres formas de ser KOA.</h2>
+          <p class="cta__text" data-i18n="cta.text">Deporte, gaming y bienestar conviven en un mismo ecosistema. Encuentra tu punto de entrada.</p>
+          <a class="button button--inverse" href="#fuerzas" data-i18n="cta.btn">Ver las tres fuerzas</a>
         </div>
       </div>
     </section>
 
     <section class="section section--contact" id="contacto" aria-labelledby="contacto-titulo">
       <div class="container">
-        <div class="contact">
-          <div class="contact__intro">
+        <div class="contact row align-items-start gy-5">
+          <div class="contact__intro col-lg-5">
             <p class="eyebrow">
               <span class="eyebrow__dot" aria-hidden="true"></span>
-              06 / Contacto
+              <span data-i18n="contact.eyebrow">06 / Contacto</span>
             </p>
-            <h2 class="contact__title" id="contacto-titulo">KOA es <span>tu casa</span></h2>
-            <p class="contact__desc">Cuando la gente se une, todos ganan.</p>
+            <h2 class="contact__title" id="contacto-titulo" data-i18n-html="contact.title">KOA es <span>tu casa</span></h2>
+            <p class="contact__desc" data-i18n="contact.desc">Cuando la gente se une, todos ganan.</p>
           </div>
 
-          <ul class="channels">
-            <li>
-              <a class="channel channel--instagram" href="https://www.instagram.com/koa.esports_mx/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de KOA (se abre en una pestaña nueva)">
-                <span class="channel__icon" aria-hidden="true">
-                  <svg viewBox="0 0 448 512" fill="currentColor" focusable="false">
+          <div class="col-lg-7">
+            <ul class="channels">
+              <li>
+                <a class="channel channel--instagram" href="https://www.instagram.com/koa.esports_mx/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de KOA (se abre en una pestaña nueva)" data-i18n-attr="aria-label:ch.ig.aria">
+                  <span class="channel__icon" aria-hidden="true">
+                    <svg viewBox="0 0 448 512" fill="currentColor" focusable="false">
                     <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path>
                   </svg>
-                </span>
-                <span class="channel__text">
-                  <span class="channel__name">Instagram</span>
-                  <span class="channel__hint">@koa.esports_mx</span>
-                </span>
-                <span class="channel__state">Abrir <span aria-hidden="true">↗</span></span>
-              </a>
-            </li>
-            <li>
-              <a class="channel channel--whatsapp" href="https://chat.whatsapp.com/CAX7kTUQhjNDlcl8fpBTUA" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de KOA (se abre en una pestaña nueva)">
-                <span class="channel__icon" aria-hidden="true">
-                  <svg viewBox="0 0 448 512" fill="currentColor" focusable="false">
+                  </span>
+                  <span class="channel__text">
+                    <span class="channel__name">Instagram</span>
+                    <span class="channel__hint">@koa.esports_mx</span>
+                  </span>
+                  <span class="channel__state"><span data-i18n="ch.open">Abrir</span> <span aria-hidden="true">↗</span></span>
+                </a>
+              </li>
+              <li>
+                <a class="channel channel--whatsapp" href="https://chat.whatsapp.com/CAX7kTUQhjNDlcl8fpBTUA" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de KOA (se abre en una pestaña nueva)" data-i18n-attr="aria-label:ch.wa.aria">
+                  <span class="channel__icon" aria-hidden="true">
+                    <svg viewBox="0 0 448 512" fill="currentColor" focusable="false">
                     <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path>
                   </svg>
-                </span>
-                <span class="channel__text">
-                  <span class="channel__name">WhatsApp</span>
-                  <span class="channel__hint">Comunidad</span>
-                </span>
-                <span class="channel__state">Abrir <span aria-hidden="true">↗</span></span>
-              </a>
-            </li>
-            <li>
-              <a class="channel channel--tiktok" href="https://www.tiktok.com/@koa_esports" target="_blank" rel="noopener noreferrer" aria-label="TikTok de KOA (se abre en una pestaña nueva)">
-                <span class="channel__icon" aria-hidden="true">
-                  <svg viewBox="0 0 448 512" fill="currentColor" focusable="false">
+                  </span>
+                  <span class="channel__text">
+                    <span class="channel__name">WhatsApp</span>
+                    <span class="channel__hint" data-i18n="ch.community">Comunidad</span>
+                  </span>
+                  <span class="channel__state"><span data-i18n="ch.open">Abrir</span> <span aria-hidden="true">↗</span></span>
+                </a>
+              </li>
+              <li>
+                <a class="channel channel--tiktok" href="https://www.tiktok.com/@koa_esports" target="_blank" rel="noopener noreferrer" aria-label="TikTok de KOA (se abre en una pestaña nueva)" data-i18n-attr="aria-label:ch.tt.aria">
+                  <span class="channel__icon" aria-hidden="true">
+                    <svg viewBox="0 0 448 512" fill="currentColor" focusable="false">
                     <path d="M448 209.9a210.1 210.1 0 0 1-122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"></path>
                   </svg>
-                </span>
-                <span class="channel__text">
-                  <span class="channel__name">TikTok</span>
-                  <span class="channel__hint">@koa_esports</span>
-                </span>
-                <span class="channel__state">Abrir <span aria-hidden="true">↗</span></span>
-              </a>
-            </li>
-          </ul>
+                  </span>
+                  <span class="channel__text">
+                    <span class="channel__name">TikTok</span>
+                    <span class="channel__hint">@koa_esports</span>
+                  </span>
+                  <span class="channel__state"><span data-i18n="ch.open">Abrir</span> <span aria-hidden="true">↗</span></span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -601,86 +570,90 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container footer__grid">
-      <div class="footer__brand">
-        <a class="brand brand--footer" href="#inicio" aria-label="KOA HUB — Inicio">
-          <img class="brand__logo" src="assets/brand/koa-logo-blanco.png" alt="KOA" width="271" height="124" data-logo-dark="assets/brand/koa-logo-blanco.png" data-logo-light="assets/brand/koa-logo-negro-transparente.png">
-          <span class="brand__word">HUB</span>
-        </a>
-        <p class="footer__text">
-          Ecosistema que reúne deporte, gaming y bienestar en una misma comunidad.
-          Transforma. Supera. Conecta.
-        </p>
+    <div class="container">
+      <div class="footer__grid row gy-5">
+        <div class="footer__brand col-12 col-lg-4">
+          <a class="brand brand--footer" href="#inicio" aria-label="KOA HUB — Inicio" data-i18n-attr="aria-label:brand.aria">
+            <img class="brand__logo" src="assets/brand/koa-logo-blanco.png" alt="KOA" width="271" height="124" data-logo-dark="assets/brand/koa-logo-blanco.png" data-logo-light="assets/brand/koa-logo-negro-transparente.png">
+            <span class="brand__word">HUB</span>
+          </a>
+          <p class="footer__text" data-i18n="footer.text">
+            Ecosistema que reúne deporte, gaming y bienestar en una misma comunidad. Transforma. Supera. Conecta.
+          </p>
+        </div>
+
+        <div class="footer__contact col-12 col-md-4 col-lg-3">
+          <h3 class="footer__heading" data-i18n="footer.contact.h">Contacto</h3>
+          <p class="footer__contact-lead" data-i18n="footer.follow">Sigue la conversación.</p>
+          <ul class="footer__social">
+            <li>
+              <a class="footer__social-link footer__social-link--instagram" href="https://www.instagram.com/koa.esports_mx/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de KOA (se abre en una pestaña nueva)" data-i18n-attr="aria-label:ch.ig.aria">
+                <span class="footer__social-name">Instagram</span>
+                <span class="footer__social-handle">@koa.esports_mx</span>
+              </a>
+            </li>
+            <li>
+              <a class="footer__social-link footer__social-link--whatsapp" href="https://chat.whatsapp.com/CAX7kTUQhjNDlcl8fpBTUA" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de KOA (se abre en una pestaña nueva)" data-i18n-attr="aria-label:ch.wa.aria">
+                <span class="footer__social-name">WhatsApp</span>
+                <span class="footer__social-handle" data-i18n="ch.community">Comunidad</span>
+              </a>
+            </li>
+            <li>
+              <a class="footer__social-link footer__social-link--tiktok" href="https://www.tiktok.com/@koa_esports" target="_blank" rel="noopener noreferrer" aria-label="TikTok de KOA (se abre en una pestaña nueva)" data-i18n-attr="aria-label:ch.tt.aria">
+                <span class="footer__social-name">TikTok</span>
+                <span class="footer__social-handle">@koa_esports</span>
+              </a>
+            </li>
+          </ul>
+          <a class="footer__contact-link" href="#contacto"><span data-i18n="footer.all">Todos los canales</span> <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <nav class="footer__nav col-12 col-md-4 col-lg-3" aria-label="Fuerzas y disciplinas de KOA" data-i18n-attr="aria-label:footer.forces.aria">
+          <h3 class="footer__heading" data-i18n="footer.forces.h">Fuerzas y disciplinas</h3>
+          <ul class="footer__list">
+            <li>
+              <span class="footer__unit">KOA eSPORTS</span>
+            </li>
+            <li>
+              <span class="footer__unit">KOA SPORTS</span>
+              <ul class="footer__list footer__list--nested">
+                <li>
+                  <span class="footer__unit">KOA XHOCK</span>
+                  <a class="footer__link footer__link--inline" href="https://koa-hub.com/tickets/" target="_blank" rel="noopener noreferrer" aria-label="Ver KOA XHOCK (se abre en una pestaña nueva)" data-i18n="footer.current" data-i18n-attr="aria-label:link.xhock.aria">Sitio actual</a>
+                </li>
+                <!-- Pendiente: KOA Fútbol (disciplina de KOA SPORTS). -->
+              </ul>
+            </li>
+            <li>
+              <span class="footer__unit">KOA WELLNESS</span>
+            </li>
+          </ul>
+        </nav>
+
+        <nav class="footer__nav col-12 col-md-4 col-lg-2" aria-label="Secciones de esta página" data-i18n-attr="aria-label:footer.page.aria">
+          <h3 class="footer__heading" data-i18n="footer.page.h">En esta página</h3>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="#inicio" data-i18n="pg.home">Inicio</a></li>
+            <li><a class="footer__link" href="#ecosistema" data-i18n="pg.eco">Ecosistema KOA</a></li>
+            <li><a class="footer__link" href="#fuerzas" data-i18n="pg.forces">Las tres fuerzas</a></li>
+            <li><a class="footer__link" href="#fuerzas-detalle" data-i18n="pg.detail">Las fuerzas a fondo</a></li>
+            <li><a class="footer__link" href="#filosofia" data-i18n="pg.phil">Filosofía compartida</a></li>
+            <li><a class="footer__link" href="#explora" data-i18n="pg.cta">Explora KOA</a></li>
+            <li><a class="footer__link" href="#contacto" data-i18n="pg.contact">Contacto</a></li>
+          </ul>
+        </nav>
       </div>
-
-      <div class="footer__contact">
-        <h3 class="footer__heading">Contacto</h3>
-        <p class="footer__contact-lead">Sigue la conversación.</p>
-        <ul class="footer__social">
-          <li>
-            <a class="footer__social-link footer__social-link--instagram" href="https://www.instagram.com/koa.esports_mx/" target="_blank" rel="noopener noreferrer" aria-label="Instagram de KOA (se abre en una pestaña nueva)">
-              <span class="footer__social-name">Instagram</span>
-              <span class="footer__social-handle">@koa.esports_mx</span>
-            </a>
-          </li>
-          <li>
-            <a class="footer__social-link footer__social-link--whatsapp" href="https://chat.whatsapp.com/CAX7kTUQhjNDlcl8fpBTUA" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de KOA (se abre en una pestaña nueva)">
-              <span class="footer__social-name">WhatsApp</span>
-              <span class="footer__social-handle">Comunidad</span>
-            </a>
-          </li>
-          <li>
-            <a class="footer__social-link footer__social-link--tiktok" href="https://www.tiktok.com/@koa_esports" target="_blank" rel="noopener noreferrer" aria-label="TikTok de KOA (se abre en una pestaña nueva)">
-              <span class="footer__social-name">TikTok</span>
-              <span class="footer__social-handle">@koa_esports</span>
-            </a>
-          </li>
-        </ul>
-        <a class="footer__contact-link" href="#contacto">Todos los canales <span aria-hidden="true">↗</span></a>
-      </div>
-
-      <nav class="footer__nav" aria-label="Fuerzas y disciplinas de KOA">
-        <h3 class="footer__heading">Fuerzas y disciplinas</h3>
-        <ul class="footer__list">
-          <li>
-            <span class="footer__unit">KOA eSPORTS</span>
-          </li>
-          <li>
-            <span class="footer__unit">KOA SPORTS</span>
-            <ul class="footer__list footer__list--nested">
-              <li>
-                <span class="footer__unit">KOA XHOCK</span>
-                <a class="footer__link footer__link--inline" href="https://koa-hub.com/tickets/" target="_blank" rel="noopener noreferrer" aria-label="Ver KOA XHOCK (se abre en una pestaña nueva)">Sitio actual</a>
-              </li>
-              <!-- Pendiente: KOA Fútbol (disciplina de KOA SPORTS). -->
-            </ul>
-          </li>
-          <li>
-            <span class="footer__unit">KOA WELLNESS</span>
-          </li>
-        </ul>
-      </nav>
-
-      <nav class="footer__nav" aria-label="Secciones de esta página">
-        <h3 class="footer__heading">En esta página</h3>
-        <ul class="footer__list">
-          <li><a class="footer__link" href="#inicio">Inicio</a></li>
-          <li><a class="footer__link" href="#ecosistema">Ecosistema KOA</a></li>
-          <li><a class="footer__link" href="#fuerzas">Las tres fuerzas</a></li>
-          <li><a class="footer__link" href="#fuerzas-detalle">Las fuerzas a fondo</a></li>
-          <li><a class="footer__link" href="#filosofia">Filosofía compartida</a></li>
-          <li><a class="footer__link" href="#explora">Explora KOA</a></li>
-          <li><a class="footer__link" href="#contacto">Contacto</a></li>
-        </ul>
-      </nav>
     </div>
 
-    <div class="container footer__bottom">
-      <p>© <span id="anio-actual"></span> KOA HUB</p>
-      <p>Deporte · Gaming · Bienestar</p>
+    <div class="container">
+      <div class="footer__bottom">
+        <p>© <span id="anio-actual"></span> KOA HUB</p>
+        <p data-i18n="footer.bottom">Deporte · Gaming · Bienestar</p>
+      </div>
     </div>
   </footer>
 
-  <script src="js/main.js?v=20261122" defer></script>
+  <script src="js/i18n.js?v=20261122b" defer></script>
+  <script src="js/main.js?v=20261122b" defer></script>
 </body>
 </html>

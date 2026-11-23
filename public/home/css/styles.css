@@ -245,9 +245,10 @@ a {
   outline-offset: 3px;
 }
 
+/* Contenedor: Bootstrap (grid), ajustado al ancho y al margen de KOA */
 .container {
-  width: min(calc(100% - (var(--gutter) * 2)), var(--max-width));
-  margin-inline: auto;
+  --bs-gutter-x: calc(var(--gutter) * 2);
+  max-width: calc(var(--max-width) + var(--gutter) * 2);
 }
 
 /* Enlace de salto */
@@ -531,10 +532,7 @@ a {
 .hero__grid {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   align-items: center;
-  gap: clamp(2.5rem, 6vw, 5rem);
 }
 
 .hero__title {
@@ -685,7 +683,9 @@ a {
   border-radius: 50%;
   background:
     radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.42), transparent 42%),
-    radial-gradient(circle at 50% 94%, rgba(0, 0, 0, 0.3), transparent 52%);
+    radial-gradient(circle at 50% 94%, rgba(0, 0, 0, 0.3), transparent 52%),
+    radial-gradient(circle at 108% 50%, transparent 58%, rgba(255, 255, 255, 0.2) 59%, rgba(255, 255, 255, 0.2) 61%, transparent 62%),
+    radial-gradient(circle at -8% 50%, transparent 58%, rgba(255, 255, 255, 0.2) 59%, rgba(255, 255, 255, 0.2) 61%, transparent 62%);
   transform: rotate(calc(var(--orbit-spin, 0deg) * 2));
   pointer-events: none;
 }
@@ -860,10 +860,7 @@ a {
 }
 
 .section__head {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
   align-items: end;
-  gap: 1.5rem 4rem;
   margin-bottom: clamp(2.5rem, 5vw, 3.75rem);
 }
 
@@ -898,12 +895,9 @@ a {
 /* Pilares del ecosistema */
 
 .pillars {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
   list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
 }
 
 .pillar {
@@ -1001,10 +995,7 @@ a {
 }
 
 .units__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: stretch;
-  gap: 1rem;
 }
 
 .unit-card {
@@ -1346,9 +1337,6 @@ a {
 .branch {
   --branch-accent: var(--accent-orange);
   --branch-rule: var(--accent-orange);
-  display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr);
-  gap: clamp(2rem, 5vw, 4.5rem);
   padding-block: clamp(2.5rem, 5vw, 4rem);
   border-top: 1px solid var(--line);
 }
@@ -1647,10 +1635,7 @@ a {
 }
 
 .philosophy__head {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
   align-items: end;
-  gap: 1.5rem 4rem;
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
 
@@ -1672,12 +1657,9 @@ a {
 }
 
 .values {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0.9rem;
-  margin: 0;
-  padding: 0;
   list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
 }
 
 .value {
@@ -1827,10 +1809,7 @@ a {
 }
 
 .contact {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   align-items: start;
-  gap: clamp(2rem, 5vw, 4.5rem);
 }
 
 .contact__intro {
@@ -2007,9 +1986,6 @@ a {
 .footer__grid {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, 0.95fr) minmax(0, 0.8fr);
-  gap: 2.5rem;
   padding-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
 
@@ -2242,10 +2218,6 @@ a {
     transform: translateX(1rem);
   }
 
-  .values {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .value {
     min-height: 13.5rem;
   }
@@ -2277,7 +2249,7 @@ a {
     grid-row: 1;
   }
 
-  .theme-toggle {
+  .site-header__tools {
     grid-column: 2;
     grid-row: 1;
     justify-self: end;
@@ -2298,32 +2270,12 @@ a {
     letter-spacing: 0.1em;
   }
 
-  .hero__grid {
-    grid-template-columns: 1fr;
-  }
-
   .hero__visual {
     min-height: auto;
   }
 
   .orbit {
     width: min(80%, 20rem);
-  }
-
-  .section__head,
-  .philosophy__head {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .pillars,
-  .units__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .contact {
-    grid-template-columns: 1fr;
-    gap: 2rem;
   }
 
   .contact__intro {
@@ -2334,31 +2286,15 @@ a {
     min-height: auto;
   }
 
-  .branch {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
   .branch__aside {
     position: static;
     max-width: 34rem;
-  }
-
-  .values {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .value {
     min-height: 12.5rem;
   }
 
-  .footer__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .footer__brand {
-    grid-column: 1 / -1;
-  }
 }
 
 @media (max-width: 640px) {
@@ -2401,10 +2337,6 @@ a {
     font-size: clamp(3.8rem, 21vw, 6rem);
   }
 
-  .values {
-    grid-template-columns: 1fr;
-  }
-
   .value {
     min-height: auto;
   }
@@ -2413,13 +2345,6 @@ a {
     grid-template-columns: 1fr;
   }
 
-  .footer__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .footer__brand {
-    grid-column: auto;
-  }
 }
 
 @media (max-width: 380px) {
@@ -2462,4 +2387,72 @@ a {
   [data-parallax] {
     translate: none !important;
   }
+}
+
+
+/* --------------------------------------------------------------------------
+   Selector de idioma
+   -------------------------------------------------------------------------- */
+
+.hero__title-alt {
+  display: block;
+}
+
+.lang-switch {
+  gap: 0.1rem;
+  padding: 0.2rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface-soft);
+  box-shadow: inset 0 1px 0 var(--line-soft);
+}
+
+.lang-switch__btn {
+  padding: 0.42rem 0.62rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted-strong);
+  font-family: inherit;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.lang-switch__btn:hover {
+  color: var(--text-strong);
+}
+
+.lang-switch__btn[aria-pressed="true"] {
+  background: var(--accent-red);
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Japonés: tipografía con glifos japoneses e interlineado más abierto
+   -------------------------------------------------------------------------- */
+
+:root[lang="ja"] {
+  --font-body: "Manrope", "Noto Sans JP", "Hiragino Kaku Gothic ProN",
+    "Yu Gothic", "Meiryo", system-ui, sans-serif;
+  --font-display: "Barlow Condensed", "Noto Sans JP", "Hiragino Kaku Gothic ProN",
+    "Yu Gothic", "Meiryo", sans-serif;
+}
+
+:root[lang="ja"] body {
+  line-break: strict;
+  overflow-wrap: anywhere;
+}
+
+:root[lang="ja"] .hero__claim,
+:root[lang="ja"] .section__title,
+:root[lang="ja"] .philosophy__title,
+:root[lang="ja"] .cta__title,
+:root[lang="ja"] .contact__title,
+:root[lang="ja"] .pillar__title,
+:root[lang="ja"] .value__title {
+  line-height: 1.2;
 }
