@@ -518,7 +518,7 @@ a {
 
 .hero {
   position: relative;
-  overflow: hidden;
+  overflow: clip;
   padding-block: clamp(3.5rem, 9vw, 7.5rem);
 }
 
@@ -2530,3 +2530,24 @@ a {
 .footer__list--nested .social-tile{width:28px;height:28px}
 .social-tile--logo{background:#17171a}
 .social-tile--logo img{width:28px;height:auto}
+
+/* Escritorio: el hero se queda fijo mientras se baja y la órbita gira con el scroll */
+@media (min-width: 992px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
+  .hero {
+    min-height: 185vh;
+    padding-block: 0;
+  }
+
+  .hero > .container {
+    position: sticky;
+    top: var(--header-height);
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - var(--header-height));
+    padding-block: 2rem;
+  }
+
+  .hero__grid {
+    flex: 1 1 100%;
+  }
+}

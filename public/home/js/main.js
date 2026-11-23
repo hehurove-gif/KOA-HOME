@@ -623,7 +623,7 @@ function iniciarOrbita() {
     return;
   }
 
-  const GRADOS_POR_PIXEL = 0.45;
+  const GRADOS_POR_PIXEL = 0.6;
   const DERIVA_GRADOS_POR_SEGUNDO = 360 / 70;
 
   const movimientoReducido = window.matchMedia(

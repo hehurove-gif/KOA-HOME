@@ -51,6 +51,13 @@ Regla del proyecto: al terminar una fase se corre primero el plan de la fase ant
 
 Orden de ejecución al cerrar la Fase 3: Fase 1, Fase 2 y Fase 3 (26/26).
 
+## Fase 4 (órbita fija con giro por scroll)
+| ID | Prueba | Resultado |
+|----|--------|-----------|
+| F4-1 | Escritorio 1440×900: la órbita no se mueve al bajar 500 px, gira >200° y vuelve al subir | Pasa |
+
+Orden de ejecución al cerrar la Fase 4: Fases 1, 2, 3 y 4 (27/27).
+
 ## No cubierto
 - Lighthouse / rendimiento y comprobación de que los destinos externos responden (sin red en el entorno).
 - Safari y Firefox. En particular, Safari actualiza el favicon de forma menos fiable que Chrome/Firefox.

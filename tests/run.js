@@ -431,6 +431,22 @@ async function nuevaPagina(browser, opciones, inicial) {
     await contexto.close();
   });
 
+  await prueba("F4-1", "Escritorio: la órbita queda fija mientras se baja y gira con el scroll (ida y vuelta)", async () => {
+    const { contexto, pagina } = await nuevaPagina(browser, { viewport: { width: 1440, height: 900 } });
+    const leer = () => pagina.evaluate(() => ({ top: Math.round(document.querySelector(".orbit").getBoundingClientRect().top), spin: parseFloat(document.querySelector(".orbit").style.getPropertyValue("--orbit-spin")) }));
+    const a = await leer();
+    await pagina.evaluate(() => window.scrollTo(0, 500));
+    await pagina.waitForTimeout(900);
+    const b = await leer();
+    afirmar(Math.abs(b.top - a.top) < 20, "la órbita debe quedarse fija: " + a.top + " → " + b.top);
+    afirmar(b.spin - a.spin > 200, "debe girar al bajar: " + a.spin + " → " + b.spin);
+    await pagina.evaluate(() => window.scrollTo(0, 0));
+    await pagina.waitForTimeout(900);
+    const c = await leer();
+    afirmar(c.spin < b.spin - 200, "debe girar al revés al subir: " + b.spin + " → " + c.spin);
+    await contexto.close();
+  });
+
   await browser.close();
 
   const ancho = Math.max(...resultados.map((r) => r.id.length));
