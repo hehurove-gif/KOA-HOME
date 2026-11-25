@@ -487,10 +487,10 @@ function iniciarTema() {
 }
 
 /**
- * Entrada de los bloques ligada al scroll: mientras el bloque sube por la
- * pantalla, `--enter` va de 0 a 1 (aparece, se desliza y crece). Es reversible:
- * al subir de nuevo, el bloque sale igual que entró. Funciona también con
- * movimiento reducido porque solo avanza cuando la persona hace scroll.
+ * Entrada de los bloques al bajar. En navegadores con líneas de tiempo de
+ * scroll (Chrome, Edge, Safari 26) la anima el CSS (`animation-timeline: view()`)
+ * fuera del hilo principal y es reversible; no hace falta JS por cada scroll.
+ * En los demás se usa un IntersectionObserver que revela cada bloque una vez.
  */
 function iniciarEntrada() {
   const selector =
@@ -503,115 +503,39 @@ function iniciarEntrada() {
     return;
   }
 
+  const nativo =
+    window.CSS && CSS.supports && CSS.supports("animation-timeline: view()");
+
   elementos.forEach(function (elemento, indice) {
     elemento.classList.add("reveal");
     // Alterna el lado de entrada para que las columnas no lleguen todas igual.
     elemento.style.setProperty("--enter-dir", indice % 2 === 0 ? "1" : "-1");
   });
 
-  let pendiente = false;
-
-  function actualizar() {
-    pendiente = false;
-    const altura = window.innerHeight;
-    const alFinal =
-      window.scrollY + altura >= document.documentElement.scrollHeight - 4;
-
-    elementos.forEach(function (elemento) {
-      const arriba = elemento.getBoundingClientRect().top;
-      let progreso = (altura * 0.98 - arriba) / (altura * 0.3);
-      progreso = alFinal ? 1 : Math.max(0, Math.min(1, progreso));
-      // Suaviza el arranque y el final del recorrido.
-      progreso = progreso * progreso * (3 - 2 * progreso);
-      elemento.style.setProperty("--enter", progreso.toFixed(3));
-    });
-  }
-
-  function solicitar() {
-    if (!pendiente) {
-      pendiente = true;
-      window.requestAnimationFrame(actualizar);
+  if (nativo || !("IntersectionObserver" in window)) {
+    if (!nativo) {
+      elementos.forEach(function (elemento) {
+        elemento.classList.add("is-visible");
+      });
     }
-  }
-
-  window.addEventListener("scroll", solicitar, { passive: true });
-  window.addEventListener("resize", solicitar);
-  actualizar();
-}
-
-/**
- * Desplaza los bloques horizontalmente según su recorrido por el viewport.
- * Al bajar, cada bloque entra desde la derecha y sale hacia la izquierda.
- */
-function iniciarParalaje() {
-  const grupos = [
-    { selector: ".hero__content", amplitud: 18 },
-    { selector: ".hero__visual", amplitud: -16 },
-    { selector: ".section__head", amplitud: 30 },
-    { selector: ".pillar", amplitud: 22 },
-    { selector: ".unit-card", amplitud: 22 },
-    { selector: ".branch__aside", amplitud: 26 },
-    { selector: ".branch__body", amplitud: 16 },
-    { selector: ".philosophy__head", amplitud: 28 },
-    { selector: ".value", amplitud: 18 },
-    { selector: ".cta", amplitud: 22 },
-    { selector: ".contact__intro", amplitud: 26 },
-    { selector: ".channel", amplitud: 16 }
-  ];
-
-  const elementos = [];
-
-  grupos.forEach(function (grupo) {
-    document.querySelectorAll(grupo.selector).forEach(function (elemento) {
-      elemento.dataset.parallax = String(grupo.amplitud);
-      elementos.push(elemento);
-    });
-  });
-
-  if (elementos.length === 0) {
     return;
   }
 
-  let pendiente = false;
+  const observador = new IntersectionObserver(
+    function (entradas) {
+      entradas.forEach(function (entrada) {
+        if (entrada.isIntersecting) {
+          entrada.target.classList.add("is-visible");
+          observador.unobserve(entrada.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -6% 0px" }
+  );
 
-  function actualizar() {
-    pendiente = false;
-    const altura = window.innerHeight;
-    const escala = Math.min(1, window.innerWidth / 1000);
-
-    elementos.forEach(function (elemento) {
-      const caja = elemento.getBoundingClientRect();
-
-      if (caja.bottom < -160 || caja.top > altura + 160) {
-        return;
-      }
-
-      const centro = caja.top + caja.height / 2;
-      const recorrido = altura / 2 + caja.height / 2;
-      const progreso = Math.max(
-        -1,
-        Math.min(1, (altura / 2 - centro) / recorrido)
-      );
-      const amplitud = (parseFloat(elemento.dataset.parallax) || 0) * escala;
-      const desplazamiento = -progreso * amplitud;
-
-      elemento.style.setProperty(
-        "--parallax-x",
-        desplazamiento.toFixed(2) + "px"
-      );
-    });
-  }
-
-  function solicitar() {
-    if (!pendiente) {
-      pendiente = true;
-      window.requestAnimationFrame(actualizar);
-    }
-  }
-
-  window.addEventListener("scroll", solicitar, { passive: true });
-  window.addEventListener("resize", solicitar);
-  actualizar();
+  elementos.forEach(function (elemento) {
+    observador.observe(elemento);
+  });
 }
 
 /**
@@ -799,7 +723,6 @@ function iniciar() {
   iniciarIdioma();
   iniciarTema();
   iniciarEntrada();
-  iniciarParalaje();
   iniciarOrbita();
   iniciarCinta();
   actualizarAnio();

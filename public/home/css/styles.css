@@ -61,7 +61,7 @@
   --line-soft: rgba(246, 244, 245, 0.07);
   --grid-line: transparent;
   --panel: var(--gray-850);
-  --header-bg: rgba(5, 5, 3, 0.9);
+  --header-bg: rgba(5, 5, 3, 0.97);
   --overlay-bg: rgba(13, 13, 11, 0.96);
   --footer-bg: var(--gray-950);
   --accent-red: var(--koa-red);
@@ -139,7 +139,7 @@
   --line-soft: rgba(5, 5, 3, 0.07);
   --grid-line: transparent;
   --panel: #efefeb;
-  --header-bg: rgba(246, 244, 245, 0.94);
+  --header-bg: rgba(246, 244, 245, 0.98);
   --overlay-bg: rgba(255, 255, 255, 0.97);
   --footer-bg: var(--we-cream);
   --accent-red: #d00616;
@@ -304,8 +304,6 @@ a {
   z-index: 100;
   border-bottom: 1px solid var(--line);
   background: var(--header-bg);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
   box-shadow: 0 1px 0 var(--line-soft);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
@@ -2198,29 +2196,43 @@ a {
   }
 }
 
-/* Entrada ligada al scroll: JS actualiza --enter (0 → 1) mientras se baja */
+/* Entrada de bloques. Con view timelines la anima el navegador (compositor);
+   en los demás, JS añade .is-visible una vez. */
 .reveal {
-  --enter-x: 3.5rem;
-  --enter-y: 2rem;
-  opacity: var(--enter, 1);
-  transform: translate3d(
-      calc((1 - var(--enter, 1)) * var(--enter-dir, 1) * var(--enter-x)),
-      calc((1 - var(--enter, 1)) * var(--enter-y)),
-      0
-    )
-    scale(calc(0.94 + 0.06 * var(--enter, 1)));
-  will-change: opacity, transform;
+  --enter-x: 3rem;
+  --enter-y: 1.5rem;
 }
 
-/* Movimiento horizontal ligado al scroll */
-
-[data-parallax] {
-  translate: var(--parallax-x, 0px) 0;
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: reveal-enter linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  [data-parallax] {
-    will-change: translate;
+@supports not (animation-timeline: view()) {
+  .reveal {
+    opacity: 0;
+    transform: translate3d(calc(var(--enter-dir, 1) * var(--enter-x)), var(--enter-y), 0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(calc(var(--enter-dir, 1) * var(--enter-x)), var(--enter-y), 0) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -2522,7 +2534,7 @@ a {
 
 @media (max-width: 1120px) {
   .reveal {
-    --enter-x: 1.75rem;
+    --enter-x: 1.5rem;
   }
 }
 

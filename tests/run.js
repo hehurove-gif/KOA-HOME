@@ -447,24 +447,28 @@ async function nuevaPagina(browser, opciones, inicial) {
     await contexto.close();
   });
 
-  await prueba("F4-4", "Los bloques entran ligados al scroll (--enter sube al bajar y baja al subir) y quedan visibles", async () => {
+  await prueba("F4-4", "Los bloques entran con el scroll (reversible, sin JS por cada scroll) y quedan visibles", async () => {
     const { contexto, pagina } = await nuevaPagina(browser, { viewport: { width: 1440, height: 900 } });
-    const en = () => pagina.evaluate(() => parseFloat(document.querySelector(".unit-card, .pillar").style.getPropertyValue("--enter")));
-    const sel = await pagina.evaluate(() => { const e = document.querySelector(".unit-card, .pillar"); return Math.round(e.getBoundingClientRect().top + window.scrollY); });
+    const info = await pagina.evaluate(() => ({ nativo: CSS.supports("animation-timeline: view()"), y: Math.round(document.querySelector(".unit-card, .pillar").getBoundingClientRect().top + window.scrollY) }));
+    const op = () => pagina.evaluate(() => parseFloat(getComputedStyle(document.querySelector(".unit-card, .pillar")).opacity));
     await pagina.evaluate(() => window.scrollTo(0, 0));
     await pagina.waitForTimeout(300);
-    const a = await en();
-    await pagina.evaluate((y) => window.scrollTo(0, y - 450), sel);
-    await pagina.waitForTimeout(400);
-    const b = await en();
-    await pagina.evaluate((y) => window.scrollTo(0, y - 800), sel);
-    await pagina.waitForTimeout(400);
-    const c = await en();
-    afirmar(a < 0.2 && b > 0.95 && c > 0 && c < b, "valores --enter: " + [a, b, c]);
-    const ocultos = await pagina.evaluate(() => { window.scrollTo(0, document.documentElement.scrollHeight); return null; });
-    await pagina.waitForTimeout(500);
+    const a = await op();
+    await pagina.evaluate((y) => window.scrollTo(0, y - 450), info.y);
+    await pagina.waitForTimeout(600);
+    const b = await op();
+    afirmar(a < 0.2 && b > 0.95, "opacidad: " + [a, b]);
+    if (info.nativo) {
+      await pagina.evaluate((y) => window.scrollTo(0, y - 885), info.y);
+      await pagina.waitForTimeout(400);
+      const c = await op();
+      afirmar(c < 0.9, "debe revertirse al subir: " + c);
+    }
+    const sinJs = await pagina.evaluate(() => performance.getEntriesByType("measure").length);
+    await pagina.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await pagina.waitForTimeout(600);
     const bajos = await pagina.evaluate(() => [...document.querySelectorAll(".reveal")].filter((e) => parseFloat(getComputedStyle(e).opacity) < 0.99 && e.getBoundingClientRect().top < window.innerHeight * 0.6 && e.getBoundingClientRect().bottom > 0).length);
-    afirmar(bajos === 0, "bloques visibles a medio abrir: " + bajos);
+    afirmar(bajos === 0, "bloques a medio abrir: " + bajos);
     await contexto.close();
   });
 
