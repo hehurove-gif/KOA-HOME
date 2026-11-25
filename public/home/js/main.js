@@ -641,10 +641,6 @@ function iniciarOrbita() {
   let puntero = false;
 
   function pintar() {
-    if (movimientoReducido.matches) {
-      return;
-    }
-
     orbita.style.setProperty(
       "--orbit-spin",
       (deriva + giroScroll).toFixed(2) + "deg"
@@ -659,9 +655,12 @@ function iniciarOrbita() {
     const delta = Math.min(0.064, (ahora - ultimo) / 1000);
     ultimo = ahora;
 
-    impulso += ((puntero ? 1 : 0) - impulso) * Math.min(1, delta * 4);
-    deriva =
-      (deriva + DERIVA_GRADOS_POR_SEGUNDO * (1 + impulso * 6) * delta) % 360;
+    // Con movimiento reducido solo gira cuando la persona hace scroll.
+    if (!movimientoReducido.matches) {
+      impulso += ((puntero ? 1 : 0) - impulso) * Math.min(1, delta * 4);
+      deriva =
+        (deriva + DERIVA_GRADOS_POR_SEGUNDO * (1 + impulso * 6) * delta) % 360;
+    }
     giroScroll += (objetivoScroll - giroScroll) * Math.min(1, delta * 9);
 
     pintar();
@@ -672,7 +671,7 @@ function iniciarOrbita() {
   }
 
   function arrancar() {
-    if (!cuadro && !movimientoReducido.matches) {
+    if (!cuadro) {
       ultimo = null;
       giroScroll = objetivoScroll;
       cuadro = window.requestAnimationFrame(animar);
@@ -725,37 +724,18 @@ function iniciarOrbita() {
 
   observador.observe(orbita);
 
-  movimientoReducido.addEventListener("change", function (evento) {
-    if (evento.matches) {
-      detener();
-      orbita.style.setProperty("--orbit-spin", "0deg");
-    } else {
-      arrancar();
-    }
-  });
-
-  if (movimientoReducido.matches) {
-    orbita.style.setProperty("--orbit-spin", "0deg");
-  } else {
-    arrancar();
-  }
+  arrancar();
 }
 
 /**
  * La cinta de palabras avanza con el scroll: al bajar corre hacia la izquierda
- * y al subir regresa, con un poco de inercia. Sin JS o con movimiento reducido
- * se queda con la animación CSS (o quieta).
+ * y al subir regresa, con un poco de inercia. Avanza solo con el scroll, también con
+ * movimiento reducido. Sin JS queda con la animación CSS.
  */
 function iniciarCinta() {
   const pista = document.querySelector(".marquee__track");
 
   if (!pista) {
-    return;
-  }
-
-  const reducido = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-  if (reducido.matches) {
     return;
   }
 

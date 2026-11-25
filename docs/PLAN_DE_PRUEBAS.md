@@ -56,8 +56,9 @@ Orden de ejecución al cerrar la Fase 3: Fase 1, Fase 2 y Fase 3 (26/26).
 |----|--------|-----------|
 | F4-1 | Escritorio 1440×900: la órbita no se mueve al bajar 500 px, gira >200° y vuelve al subir | Pasa |
 | F4-2 | La cinta de palabras avanza al bajar, regresa al subir y no usa la animación CSS cuando hay JS | Pasa |
+| F4-3 | Con "reducir movimiento": órbita y cinta no se mueven solas, pero sí con el scroll | Pasa |
 
-Orden de ejecución al cerrar la Fase 4: Fases 1, 2, 3 y 4 (28/28).
+Orden de ejecución al cerrar la Fase 4: Fases 1, 2, 3 y 4 (29/29).
 
 ## No cubierto
 - Lighthouse / rendimiento y comprobación de que los destinos externos responden (sin red en el entorno).

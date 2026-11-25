@@ -159,13 +159,13 @@ async function nuevaPagina(browser, opciones, inicial) {
     await contexto.close();
   });
 
-  await prueba("P8", "prefers-reduced-motion desactiva revelado y giro", async () => {
+  await prueba("P8", "prefers-reduced-motion desactiva el revelado y el giro automático (parte de 0°)", async () => {
     const { contexto, pagina } = await nuevaPagina(browser, { reducedMotion: "reduce" });
     const r = await pagina.evaluate(() => [
       document.querySelectorAll(".reveal").length,
       getComputedStyle(document.querySelector(".orbit")).getPropertyValue("--orbit-spin").trim()
     ]);
-    afirmar(r[0] === 0 && r[1] === "0deg", JSON.stringify(r));
+    afirmar(r[0] === 0 && Math.abs(parseFloat(r[1])) < 1, JSON.stringify(r));
     await contexto.close();
   });
 
@@ -460,6 +460,21 @@ async function nuevaPagina(browser, opciones, inicial) {
     const c = await x();
     afirmar(c > b + 150, "debe regresar al subir: " + b + " → " + c);
     afirmar(await pagina.evaluate(() => getComputedStyle(document.querySelector(".marquee__track")).animationName === "none"), "sin animación CSS cuando hay JS");
+    await contexto.close();
+  });
+
+  await prueba("F4-3", "Con movimiento reducido, órbita y cinta siguen girando con el scroll pero no solas", async () => {
+    const { contexto, pagina } = await nuevaPagina(browser, { viewport: { width: 1440, height: 900 }, reducedMotion: "reduce" });
+    const leer = () => pagina.evaluate(() => ({ spin: parseFloat(document.querySelector(".orbit").style.getPropertyValue("--orbit-spin")) || 0, x: new DOMMatrixReadOnly(getComputedStyle(document.querySelector(".marquee__track")).transform).m41 }));
+    const a = await leer();
+    await pagina.waitForTimeout(1500);
+    const quieto = await leer();
+    afirmar(Math.abs(quieto.spin - a.spin) < 1 && Math.abs(quieto.x - a.x) < 1, "no debe moverse solo");
+    await pagina.evaluate(() => window.scrollTo(0, 400));
+    await pagina.waitForTimeout(1200);
+    const b = await leer();
+    afirmar(b.spin - a.spin > 100, "la órbita debe girar con el scroll: " + a.spin + " → " + b.spin);
+    afirmar(b.x < a.x - 150, "la cinta debe avanzar con el scroll: " + a.x + " → " + b.x);
     await contexto.close();
   });
 

@@ -2537,7 +2537,7 @@ a {
 .social-tile--logo img{width:28px;height:auto}
 
 /* Escritorio: el hero se queda fijo mientras se baja y la órbita gira con el scroll */
-@media (min-width: 992px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 992px) and (min-height: 600px) {
   .hero {
     min-height: 185vh;
     padding-block: 0;
