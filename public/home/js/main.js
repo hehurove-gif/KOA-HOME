@@ -487,20 +487,14 @@ function iniciarTema() {
 }
 
 /**
- * Revela los bloques al entrar en pantalla.
- * Solo se activa si el navegador lo soporta y no hay preferencia de movimiento reducido.
+ * Entrada de los bloques ligada al scroll: mientras el bloque sube por la
+ * pantalla, `--enter` va de 0 a 1 (aparece, se desliza y crece). Es reversible:
+ * al subir de nuevo, el bloque sale igual que entró. Funciona también con
+ * movimiento reducido porque solo avanza cuando la persona hace scroll.
  */
-function iniciarRevelado() {
-  if (!("IntersectionObserver" in window)) {
-    return;
-  }
-
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    return;
-  }
-
+function iniciarEntrada() {
   const selector =
-    ".pillar, .unit-card, .branch, .value, .channel, .cta, .contact__intro";
+    ".pillar, .unit-card, .branch, .value, .channel, .cta, .contact__intro, .section__head, .philosophy__head";
   const elementos = Array.prototype.slice.call(
     document.querySelectorAll(selector)
   );
@@ -511,24 +505,38 @@ function iniciarRevelado() {
 
   elementos.forEach(function (elemento, indice) {
     elemento.classList.add("reveal");
-    elemento.style.setProperty("--reveal-delay", (indice % 3) * 70 + "ms");
+    // Alterna el lado de entrada para que las columnas no lleguen todas igual.
+    elemento.style.setProperty("--enter-dir", indice % 2 === 0 ? "1" : "-1");
   });
 
-  const observador = new IntersectionObserver(
-    function (entradas) {
-      entradas.forEach(function (entrada) {
-        if (entrada.isIntersecting) {
-          entrada.target.classList.add("is-visible");
-          observador.unobserve(entrada.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
-  );
+  let pendiente = false;
 
-  elementos.forEach(function (elemento) {
-    observador.observe(elemento);
-  });
+  function actualizar() {
+    pendiente = false;
+    const altura = window.innerHeight;
+    const alFinal =
+      window.scrollY + altura >= document.documentElement.scrollHeight - 4;
+
+    elementos.forEach(function (elemento) {
+      const arriba = elemento.getBoundingClientRect().top;
+      let progreso = (altura * 0.98 - arriba) / (altura * 0.3);
+      progreso = alFinal ? 1 : Math.max(0, Math.min(1, progreso));
+      // Suaviza el arranque y el final del recorrido.
+      progreso = progreso * progreso * (3 - 2 * progreso);
+      elemento.style.setProperty("--enter", progreso.toFixed(3));
+    });
+  }
+
+  function solicitar() {
+    if (!pendiente) {
+      pendiente = true;
+      window.requestAnimationFrame(actualizar);
+    }
+  }
+
+  window.addEventListener("scroll", solicitar, { passive: true });
+  window.addEventListener("resize", solicitar);
+  actualizar();
 }
 
 /**
@@ -536,10 +544,6 @@ function iniciarRevelado() {
  * Al bajar, cada bloque entra desde la derecha y sale hacia la izquierda.
  */
 function iniciarParalaje() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    return;
-  }
-
   const grupos = [
     { selector: ".hero__content", amplitud: 18 },
     { selector: ".hero__visual", amplitud: -16 },
@@ -794,7 +798,7 @@ function iniciar() {
   renderizarRamas();
   iniciarIdioma();
   iniciarTema();
-  iniciarRevelado();
+  iniciarEntrada();
   iniciarParalaje();
   iniciarOrbita();
   iniciarCinta();

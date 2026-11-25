@@ -159,13 +159,13 @@ async function nuevaPagina(browser, opciones, inicial) {
     await contexto.close();
   });
 
-  await prueba("P8", "prefers-reduced-motion desactiva el revelado y el giro automático (parte de 0°)", async () => {
+  await prueba("P8", "prefers-reduced-motion: sin giro automático (parte de 0°)", async () => {
     const { contexto, pagina } = await nuevaPagina(browser, { reducedMotion: "reduce" });
     const r = await pagina.evaluate(() => [
       document.querySelectorAll(".reveal").length,
       getComputedStyle(document.querySelector(".orbit")).getPropertyValue("--orbit-spin").trim()
     ]);
-    afirmar(r[0] === 0 && Math.abs(parseFloat(r[1])) < 1, JSON.stringify(r));
+    afirmar(Math.abs(parseFloat(r[1])) < 1, JSON.stringify(r));
     await contexto.close();
   });
 
@@ -431,19 +431,40 @@ async function nuevaPagina(browser, opciones, inicial) {
     await contexto.close();
   });
 
-  await prueba("F4-1", "Escritorio: la órbita queda fija mientras se baja y gira con el scroll (ida y vuelta)", async () => {
+  await prueba("F4-1", "Escritorio: el hero no retiene el scroll y la órbita gira al bajar y al revés al subir", async () => {
     const { contexto, pagina } = await nuevaPagina(browser, { viewport: { width: 1440, height: 900 } });
-    const leer = () => pagina.evaluate(() => ({ top: Math.round(document.querySelector(".orbit").getBoundingClientRect().top), spin: parseFloat(document.querySelector(".orbit").style.getPropertyValue("--orbit-spin")) }));
+    const leer = () => pagina.evaluate(() => ({ hero: Math.round(document.querySelector(".hero").getBoundingClientRect().height), spin: parseFloat(document.querySelector(".orbit").style.getPropertyValue("--orbit-spin")) }));
     const a = await leer();
-    await pagina.evaluate(() => window.scrollTo(0, 500));
+    afirmar(a.hero < 1100, "el hero no debe alargarse artificialmente: " + a.hero);
+    await pagina.evaluate(() => window.scrollTo(0, 300));
     await pagina.waitForTimeout(900);
     const b = await leer();
-    afirmar(Math.abs(b.top - a.top) < 20, "la órbita debe quedarse fija: " + a.top + " → " + b.top);
-    afirmar(b.spin - a.spin > 200, "debe girar al bajar: " + a.spin + " → " + b.spin);
+    afirmar(b.spin - a.spin > 100, "debe girar al bajar: " + a.spin + " → " + b.spin);
     await pagina.evaluate(() => window.scrollTo(0, 0));
     await pagina.waitForTimeout(900);
     const c = await leer();
-    afirmar(c.spin < b.spin - 200, "debe girar al revés al subir: " + b.spin + " → " + c.spin);
+    afirmar(c.spin < b.spin - 100, "debe girar al revés al subir: " + b.spin + " → " + c.spin);
+    await contexto.close();
+  });
+
+  await prueba("F4-4", "Los bloques entran ligados al scroll (--enter sube al bajar y baja al subir) y quedan visibles", async () => {
+    const { contexto, pagina } = await nuevaPagina(browser, { viewport: { width: 1440, height: 900 } });
+    const en = () => pagina.evaluate(() => parseFloat(document.querySelector(".unit-card, .pillar").style.getPropertyValue("--enter")));
+    const sel = await pagina.evaluate(() => { const e = document.querySelector(".unit-card, .pillar"); return Math.round(e.getBoundingClientRect().top + window.scrollY); });
+    await pagina.evaluate(() => window.scrollTo(0, 0));
+    await pagina.waitForTimeout(300);
+    const a = await en();
+    await pagina.evaluate((y) => window.scrollTo(0, y - 450), sel);
+    await pagina.waitForTimeout(400);
+    const b = await en();
+    await pagina.evaluate((y) => window.scrollTo(0, y - 800), sel);
+    await pagina.waitForTimeout(400);
+    const c = await en();
+    afirmar(a < 0.2 && b > 0.95 && c > 0 && c < b, "valores --enter: " + [a, b, c]);
+    const ocultos = await pagina.evaluate(() => { window.scrollTo(0, document.documentElement.scrollHeight); return null; });
+    await pagina.waitForTimeout(500);
+    const bajos = await pagina.evaluate(() => [...document.querySelectorAll(".reveal")].filter((e) => parseFloat(getComputedStyle(e).opacity) < 0.99 && e.getBoundingClientRect().top < window.innerHeight * 0.6 && e.getBoundingClientRect().bottom > 0).length);
+    afirmar(bajos === 0, "bloques visibles a medio abrir: " + bajos);
     await contexto.close();
   });
 

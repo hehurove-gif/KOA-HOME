@@ -54,11 +54,12 @@ Orden de ejecución al cerrar la Fase 3: Fase 1, Fase 2 y Fase 3 (26/26).
 ## Fase 4 (órbita fija con giro por scroll)
 | ID | Prueba | Resultado |
 |----|--------|-----------|
-| F4-1 | Escritorio 1440×900: la órbita no se mueve al bajar 500 px, gira >200° y vuelve al subir | Pasa |
+| F4-1 | Escritorio 1440×900: el hero no retiene el scroll (sin tramo fijo); la órbita gira al bajar y al revés al subir | Pasa |
 | F4-2 | La cinta de palabras avanza al bajar, regresa al subir y no usa la animación CSS cuando hay JS | Pasa |
 | F4-3 | Con "reducir movimiento": órbita y cinta no se mueven solas, pero sí con el scroll | Pasa |
+| F4-4 | Los bloques entran ligados al scroll (`--enter` sube al bajar y baja al subir) y al final quedan visibles | Pasa |
 
-Orden de ejecución al cerrar la Fase 4: Fases 1, 2, 3 y 4 (29/29).
+Orden de ejecución al cerrar la Fase 4: Fases 1, 2, 3 y 4 (30/30).
 
 ## No cubierto
 - Lighthouse / rendimiento y comprobación de que los destinos externos responden (sin red en el entorno).
